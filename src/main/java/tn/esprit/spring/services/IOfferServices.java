@@ -13,8 +13,11 @@ public interface IOfferServices {
 	public List<Offer> getAllOffers (String keyword);
 	public List<Offer> getMyOffers (int id);
 	public List<Offer> getValidatedOffers (String keyword);
+	public List<Offer> getValidatedOffersByName (String name);
+	
 	
 	public Offer updateOffer (Offer o);
+	
 	
 }
 

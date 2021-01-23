@@ -53,6 +53,8 @@ public class OfferServicesImpl implements IOfferServices {
 			return iOfferDAO.searchCustomer(keyword);
 		return iOfferDAO.findByOfferStatus(Status.Validated);
 	}
+	
+	
 
 	@Override
 	public Offer updateOffer(Offer o) {
@@ -62,6 +64,14 @@ public class OfferServicesImpl implements IOfferServices {
 		if (!(o.getOfferStatus()== null))
 			offer.setOfferStatus(o.getOfferStatus());
 		return iOfferDAO.save(offer);
+	}
+
+	@Override
+	public List<Offer> getValidatedOffersByName(String name) {
+		if (name != null)
+			return iOfferDAO.searchOfferbyItemName(name);
+		else
+			return iOfferDAO.findByOfferStatus(Status.Validated);
 	}
 	
 	

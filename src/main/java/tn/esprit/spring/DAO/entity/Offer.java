@@ -1,6 +1,7 @@
 package tn.esprit.spring.DAO.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -30,6 +31,9 @@ public class Offer implements Serializable{
     
     @ManyToOne(cascade= CascadeType.ALL)
     private Customer customer;
+    
+    @ManyToMany(cascade=CascadeType.ALL)
+    private Set<Item> items;
 
 	
 	public Offer () {
@@ -85,6 +89,14 @@ public class Offer implements Serializable{
 	}
 	
 	
+
+	public Set<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<Item> items) {
+		this.items = items;
+	}
 
 	public Customer getCustomer() {
 		return customer;

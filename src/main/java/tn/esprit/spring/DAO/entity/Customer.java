@@ -34,27 +34,22 @@ public class Customer implements Serializable{
     private int rate;
     
     
-    @OneToMany (mappedBy="customer")
+    @OneToMany (mappedBy="customer", cascade=CascadeType.REMOVE)
     @JsonIgnoreProperties("customer")
     private List<Offer> offer;
-    
-    public Customer(){}
 
-	public Customer(int userid, String userName, String firstName, String profileImage, String lastName, String email,
-			String password, String questionVerif, String answerVerif, int rate, String stripeID) {
-		super();
-		this.userid = userid;
-		this.userName = userName;
-		this.firstName = firstName;
-		this.profileImage = profileImage;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-		this.questionVerif = questionVerif;
-		this.answerVerif = answerVerif;
-		this.rate = rate;
-		this.stripeID = stripeID;
-	}
+	@OneToMany (mappedBy="customer")
+	@JsonIgnoreProperties("customer")
+    private List<Forum> forums;
+    
+	@OneToMany (mappedBy="customer")
+	@JsonIgnoreProperties("customer")
+	private List<ForumResponse> forumResponses;
+	
+    public Customer(){
+    	
+    }
+
 
 	public int getUserid() {
 		return userid;
@@ -167,14 +162,6 @@ public class Customer implements Serializable{
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [userid=" + userid + ", userName=" + userName + ", firstName=" + firstName + ", profileImage="
-				+ profileImage + ", lastName=" + lastName + ", email=" + email + ", password=" + password
-				+ ", questionVerif=" + questionVerif + ", answerVerif=" + answerVerif + ", stripeID=" + stripeID
-				+ ", rate=" + rate + ", offer=" + offer + "]";
-	}
-
 	public List<Offer> getOffer() {
 		return offer;
 	}
@@ -183,7 +170,21 @@ public class Customer implements Serializable{
 		this.offer = offer;
 	}
 
-	
+    public List<Forum> getForums() {
+		return forums;
+	}
+
+	public void setForums(List<Forum> forums) {
+		this.forums = forums;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [userid=" + userid + ", userName=" + userName + ", firstName=" + firstName + ", profileImage="
+				+ profileImage + ", lastName=" + lastName + ", email=" + email + ", password=" + password
+				+ ", questionVerif=" + questionVerif + ", answerVerif=" + answerVerif + ", stripeID=" + stripeID
+				+ ", rate=" + rate + ", offer=" + offer + ", forums=" + forums + "]";
+	}
 
     
     
