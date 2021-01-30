@@ -2,6 +2,7 @@ package tn.esprit.spring.DAO.entity;
 
 
 import java.io.Serializable;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -19,7 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.apache.log4j.Logger;
 
 import com.sun.istack.NotNull;
 
@@ -31,7 +31,7 @@ import javax.persistence.InheritanceType;
 //@Inheritance(strategy=InheritanceType.JOINED)
 public class ItemB implements Serializable {
 
-	private static final Logger L=Logger.getLogger(Category.class);
+//	private static final Logger L=Logger.getLogger(Category.class);
 	
 	@Id
 	 @SequenceGenerator(name = "seqGen", sequenceName = "seqGen", initialValue = 5, allocationSize = 1)

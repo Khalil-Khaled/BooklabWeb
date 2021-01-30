@@ -10,7 +10,7 @@ import tn.esprit.spring.DAO.repository.ItemRepository;
 
 
 @Service
-public class ItemService implements IItemService{
+public class ItemService implements IItemBService{
 	
 	@Autowired
 	private ItemRepository itemRepository;

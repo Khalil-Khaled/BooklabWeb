@@ -1,14 +1,22 @@
 package tn.esprit.spring.DAO.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import tn.esprit.spring.DAO.entity.*;
 
 @Entity
 @Table(name ="User")
@@ -47,7 +55,12 @@ private int telephone;
 private int zipCode;
 
 
+@JsonIgnore
+@ManyToMany
+private List<Event> events;
 
+@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
+private List<Event> userEvents;
 
 
 public User(int id, String username, String firstname, String lastname, Role role, String email, String password,
@@ -186,6 +199,26 @@ public int getZipCode() {
 
 public void setZipCode(int zipCode) {
 	this.zipCode = zipCode;
+}
+
+
+public List<Event> getEvents() {
+	return events;
+}
+
+
+public void setEvents(List<Event> events) {
+	this.events = events;
+}
+
+
+public List<Event> getUserEvents() {
+	return userEvents;
+}
+
+
+public void setUserEvents(List<Event> userEvents) {
+	this.userEvents = userEvents;
 }
 
 

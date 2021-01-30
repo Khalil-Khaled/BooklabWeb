@@ -2,7 +2,7 @@ package tn.esprit.spring.DAO.entity;
 
 import javax.persistence.Entity;
 
-import org.apache.log4j.Logger;
+
 
 @Entity
 public class Accessoire extends ItemB {

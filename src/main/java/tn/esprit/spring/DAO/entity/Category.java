@@ -1,30 +1,30 @@
 package tn.esprit.spring.DAO.entity;
 
 import java.io.Serializable;
+
+
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.apache.log4j.Logger;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import com.sun.istack.NotNull;
+
 
 @Entity
 @Table
 public class Category implements Serializable {
-	private static final Logger L=Logger.getLogger(Category.class);
+//	private static final Logger L=Logger.getLogger(Category.class);
 	
 	@Id
     @SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq", initialValue = 1, allocationSize = 1)
@@ -38,6 +38,20 @@ public class Category implements Serializable {
 	@OneToMany(targetEntity = Item.class,cascade = CascadeType.ALL)
 	private List<Book> book;
 	
+
+	@JsonIgnore
+	@ManyToMany
+	private List<Event> categoryEvents;
+	
+	
+	public List<Event> getEvent() {
+		return categoryEvents;
+	}
+
+
+	public void setEvent(List<Event> events) {
+		this.categoryEvents = events;
+	} 
 	
 	public Category() {
 		

@@ -1,5 +1,5 @@
 package tn.esprit.spring.DAO.entity;
 
-public enum Role {
+public enum Role1 {
 	admin,customer
 }
