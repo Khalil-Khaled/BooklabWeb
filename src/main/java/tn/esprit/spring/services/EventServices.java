@@ -3,6 +3,7 @@ package tn.esprit.spring.services;
 import java.util.ArrayList;
 
 
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,6 +33,12 @@ public class EventServices implements IEventServices{
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private IItemDAO itemRepository;
+	
+	@Autowired
+	private CouponAdminService couponService ;
 	
 	@Override
 	public Event addEvent(Event e) {
@@ -183,15 +190,27 @@ public class EventServices implements IEventServices{
 
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public String giftMostActiveUserInEventCreation(){
+		Date d = new Date();
+		if(d.getDate()==31){
 		List<String> eventByUser = new ArrayList<>();
 		eventByUser = eventRepository.getNbEventsByUser();
 		String ch= eventByUser.get(0);
 		int userId = new Scanner(ch).useDelimiter("\\D+").nextInt();
 		User u = participantRepository.findById(userId).get();
-		return "user "+u.getUsername()+" you are garanted a gift for being so active, go check your cart";
+		CouponAdmin c = new CouponAdmin();
+		c.setDuration(Duration.ONCE);
+		c.setName(u.getLastname());;
+//		d.setDate(c.getExpiration_date().getDate()+30);
+		c.setPercentOff(d.getDate());
+		couponService.addCoupon(c);
+		return "The user : "+ u.getUsername() + " has won the coupon with the code "+c.getName()+" that will expire within a MONTH "/*+c.getExpiration_date()*/;
+		}
+		else return"It's not gifts day yet ! Hopefuly you win sir";
 	}
+	
 	
 	@Override
 	public List<String> mostActiveUserCategoryNames(int userId){
@@ -241,14 +260,27 @@ public class EventServices implements IEventServices{
 	}
 	
 	public String chooseBookGift(int userId){
+		Date d = new Date();
+		if(d.getDate()==31){
 		String cat = chooseGiftCategory(userId);
 		User u = participantRepository.findById(userId).get();
-//		Book b = bookRepository.findByCategory("cat");
+//		List<Book> books = itemRepository.giftItems();
+//		List<ItemB> booksSelected = new ArrayList<>();
+//		int index = (int) (Math.random() * ( 1 - 0 ));
+//		for (ItemB iB : booksSelected)
+//			if(iB.getItemRole().equals("Book"))
+//				booksSelected.add(iB);
+//		
+//		ItemB bookChosen = booksSelected.get(index);
+//		Book b = itemRepository.findByCategory(cat);
 		Book b = new Book();
 		b.setItemName("Fantastic Hamza");
 		b.setPageNumber(500);
 		b.setPrice(20.500f);
+//		booksSelected.add(b);
 		return "congrats sir : "+ u.getUsername() + " you won the book "+ b.getItemName() ;
+		}
+		else return"";
 	}
 }
 
