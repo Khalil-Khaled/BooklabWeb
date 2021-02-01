@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 
 
 @Entity
-public class Accessoire extends ItemB {
+public class Accessoire extends Item {
 
 	
 	private String accessoryDescription;

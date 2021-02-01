@@ -1,6 +1,7 @@
 package tn.esprit.spring.DAO.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -24,15 +25,18 @@ public class Offer implements Serializable{
     private float priceOffer;
     private String descriptionOffer;
     
+	@Temporal(TemporalType.DATE)
+	private Date purchaseDate;
+    
     @Enumerated(EnumType.STRING)
     private Status offerStatus;
     
     private String stripeId;
     
-    @ManyToOne(cascade= CascadeType.ALL)
-    private Customer customer;
+    @ManyToOne
+    private User user;
     
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany
     private Set<Item> items;
 
 	
@@ -98,12 +102,24 @@ public class Offer implements Serializable{
 		this.items = items;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
+
+	public Date getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(Date purchaseDate) {
+		this.purchaseDate = purchaseDate;
 	}
 
 	@Override

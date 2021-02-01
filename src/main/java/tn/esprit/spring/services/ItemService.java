@@ -5,18 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.DAO.entity.Category;
-import tn.esprit.spring.DAO.entity.ItemB;
+import tn.esprit.spring.DAO.entity.Item;
 import tn.esprit.spring.DAO.repository.ItemRepository;
 
 
 @Service
-public class ItemService implements IItemBService{
+public class ItemService implements IItemService{
 	
 	@Autowired
 	private ItemRepository itemRepository;
 	
 	@Override
-	public ItemB addItem(ItemB item) {
+	public Item addItem(Item item) {
 		
 		
 		return itemRepository.save(item);
@@ -29,16 +29,16 @@ public class ItemService implements IItemBService{
 	}
 
 	@Override
-	public ItemB updateItem(ItemB itm) {
+	public Item updateItem(Item itm) {
 	
-		ItemB item= itemRepository.findById(itm.getItemId()).orElse(null);
+		Item item= itemRepository.findById(itm.getItemId()).orElse(null);
 		if(!(itm.getItemName()==null))
 			item.setItemName(itm.getItemName());
 		return itemRepository.save(item);
 	}
 
 	@Override
-	public List<ItemB> getItem(int itemId) {
+	public List<Item> getItem(int itemId) {
 		
 		return itemRepository.findAll();
 	}

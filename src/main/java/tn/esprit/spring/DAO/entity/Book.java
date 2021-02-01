@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Book extends ItemB {
+public class Book extends Item {
 
 	private String bookDescription;
 	
