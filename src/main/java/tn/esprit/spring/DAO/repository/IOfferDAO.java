@@ -23,7 +23,7 @@ public interface IOfferDAO extends JpaRepository<Offer, Integer>{
 	@Query("SELECT o FROM Offer o WHERE o.descriptionOffer LIKE %?1% AND o.offerStatus ='Validated'")
 	public List<Offer> searchCustomer (String keyword);
 	
-	@Query("select o from Offer o join o.items item where item.name LIKE %?1% AND o.offerStatus ='Validated'")
+	@Query("select o from Offer o inner join o.items item where item.itemName LIKE %?1% AND o.offerStatus ='Validated'")
 	public List<Offer> searchOfferbyItemName (String name);
 	
 	@Query(nativeQuery = true ,value= ""
