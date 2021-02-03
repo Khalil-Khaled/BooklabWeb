@@ -2,7 +2,6 @@ package tn.esprit.spring.controller;
 
 import java.util.List;
 
-import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -28,23 +27,16 @@ public class EventController {
 
 	@Autowired
 	private ParticipantRepository participantRepository;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
 
 	@Autowired
 	private EventServices eventServices;
-	
-	//valide
+
 	@GetMapping(value = "/")
 	public void updateEventSemaineDuLivre() {
 		eventServices.updateEventSemaineDuLivre();
-	}
-	
-	//valide
-	@GetMapping(value = "/BlackFriday")
-	public void updateEventBlackFriday() {
-		eventServices.blackFriday();
 	}
 
 	// valide
@@ -68,7 +60,7 @@ public class EventController {
 		return eventRepository.countEventsByUserThisYear(eventId);
 	}
 
-	// valide
+// valide
 	@PostMapping("/ajouterEvent/{userId}/{categoryId}")
 	public Event ajouterEvent(@RequestBody Event event, @PathVariable("userId") int userId, @PathVariable("categoryId") int categoryId) {
 		User u = participantRepository.findById(userId).get();

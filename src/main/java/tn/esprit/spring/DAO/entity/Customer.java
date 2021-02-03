@@ -34,17 +34,6 @@ public class Customer implements Serializable{
     private int rate;
     
     
-    @OneToMany (mappedBy="customer", cascade=CascadeType.REMOVE)
-    @JsonIgnoreProperties("customer")
-    private List<Offer> offer;
-
-	@OneToMany (mappedBy="customer")
-	@JsonIgnoreProperties("customer")
-    private List<Forum> forums;
-    
-	@OneToMany (mappedBy="customer")
-	@JsonIgnoreProperties("customer")
-	private List<ForumResponse> forumResponses;
 	
     public Customer(){
     	
@@ -162,29 +151,7 @@ public class Customer implements Serializable{
 		return true;
 	}
 
-	public List<Offer> getOffer() {
-		return offer;
-	}
 
-	public void setOffer(List<Offer> offer) {
-		this.offer = offer;
-	}
-
-    public List<Forum> getForums() {
-		return forums;
-	}
-
-	public void setForums(List<Forum> forums) {
-		this.forums = forums;
-	}
-
-	@Override
-	public String toString() {
-		return "Customer [userid=" + userid + ", userName=" + userName + ", firstName=" + firstName + ", profileImage="
-				+ profileImage + ", lastName=" + lastName + ", email=" + email + ", password=" + password
-				+ ", questionVerif=" + questionVerif + ", answerVerif=" + answerVerif + ", stripeID=" + stripeID
-				+ ", rate=" + rate + ", offer=" + offer + ", forums=" + forums + "]";
-	}
 
     
     

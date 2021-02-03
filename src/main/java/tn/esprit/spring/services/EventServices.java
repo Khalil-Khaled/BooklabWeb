@@ -293,7 +293,7 @@ public class EventServices implements IEventServices{
 //			if(iB.getItemRole().equals("Book"))
 //				booksSelected.add(iB);
 //		
-		ItemB bookChosen = booksSelected.get(index);
+		Item bookChosen = booksSelected.get(index);
 //		Book b = itemRepository.findByCategory(cat);
 		
 //		booksSelected.add(b);

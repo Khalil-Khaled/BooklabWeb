@@ -5,16 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.DAO.entity.Item;
 import tn.esprit.spring.DAO.entity.Offer;
 import tn.esprit.spring.DAO.entity.Status;
 import tn.esprit.spring.DAO.repository.ICustomerDAO;
 import tn.esprit.spring.DAO.repository.IOfferDAO;
+import tn.esprit.spring.DAO.repository.IUserRepository;
 
 @Service
 public class OfferServicesImpl implements IOfferServices {
 	
 	@Autowired
-	private ICustomerDAO iCustomerDAO;
+	private IUserRepository iUserRepository;
 	@Autowired
 	private IOfferDAO iOfferDAO;
 
@@ -44,7 +46,7 @@ public class OfferServicesImpl implements IOfferServices {
 
 	@Override
 	public List<Offer> getMyOffers(int id) {
-		return iCustomerDAO.findById(id).orElse(null).getOffer();
+		return iUserRepository.findById(id).getOffer();
 	}
 
 	@Override
@@ -73,6 +75,13 @@ public class OfferServicesImpl implements IOfferServices {
 		else
 			return iOfferDAO.findByOfferStatus(Status.Validated);
 	}
+
+	@Override
+	public Item getMostSoldItemPerYear() {
+		return iOfferDAO.getMostSoldItemPerYear();
+	}
+	
+	
 	
 	
 }
