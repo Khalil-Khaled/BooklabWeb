@@ -9,9 +9,12 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -40,17 +43,17 @@ public class Category implements Serializable {
 	
 
 	@JsonIgnore
-	@ManyToMany
-	private List<Event> categoryEvents;
+	@ManyToMany(mappedBy="categories")
+	private List<Event> events;
 	
 	
 	public List<Event> getEvent() {
-		return categoryEvents;
+		return events;
 	}
 
 
 	public void setEvent(List<Event> events) {
-		this.categoryEvents = events;
+		this.events = events;
 	} 
 	
 	public Category() {

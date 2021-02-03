@@ -5,6 +5,7 @@ import java.util.List;
 import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,13 +28,23 @@ public class EventController {
 
 	@Autowired
 	private ParticipantRepository participantRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Autowired
 	private EventServices eventServices;
-
+	
+	//valide
 	@GetMapping(value = "/")
 	public void updateEventSemaineDuLivre() {
 		eventServices.updateEventSemaineDuLivre();
+	}
+	
+	//valide
+	@GetMapping(value = "/BlackFriday")
+	public void updateEventBlackFriday() {
+		eventServices.blackFriday();
 	}
 
 	// valide
@@ -58,11 +69,12 @@ public class EventController {
 	}
 
 	// valide
-	@PostMapping("/ajouterEvent/{userId}")
-	public Event ajouterEvent(@RequestBody Event event, @PathVariable("userId") int userId) {
+	@PostMapping("/ajouterEvent/{userId}/{categoryId}")
+	public Event ajouterEvent(@RequestBody Event event, @PathVariable("userId") int userId, @PathVariable("categoryId") int categoryId) {
 		User u = participantRepository.findById(userId).get();
+		Category c = categoryRepository.findById(categoryId).get();
 		event.ListUser(u);
-		eventServices.addEvent(event);
+		eventServices.addEvent(event,c);
 		return event;
 	}
 
@@ -118,7 +130,7 @@ public class EventController {
 			return;
 	}
 
-	@PutMapping(value = "/participateInEvent/{userId}/{eventId}")
+	@PostMapping(value = "/participateInEvent/{userId}/{eventId}")
 	public String participateInEvent(@PathVariable("userId") int userId, @PathVariable("eventId") int eventId) {
 		if (!eventServices.participantExists(eventId, userId)) {
 			eventServices.participateInEvent(userId, eventId);
@@ -127,6 +139,7 @@ public class EventController {
 			return "you are already a participant";
 	}
 
+	@Modifying
 	@PutMapping(value = "/retirerUserFromEvent/{userId}/{eventId}")
 	public String retirerUserFromEvent(@PathVariable("userId") int userId, @PathVariable("eventId") int eventId) {
 		if (eventServices.participantExists(eventId, userId)) {
@@ -156,4 +169,6 @@ public class EventController {
 		User user = participantRepository.findById(userId).get();
 		return eventServices.chooseBookGift(userId);
 	}
+	
+	
 }

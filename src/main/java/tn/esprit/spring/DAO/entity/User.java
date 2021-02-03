@@ -58,10 +58,10 @@ private int zipCode;
 
 
 @JsonIgnore
-@ManyToMany
+@ManyToMany(mappedBy="users")
 private List<Event> events;
 
-@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
+@OneToMany(mappedBy="user")
 private List<Event> userEvents;
 
 
