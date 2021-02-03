@@ -64,6 +64,9 @@ private List<Event> events;
 @OneToMany(cascade = CascadeType.ALL, mappedBy="user")
 private List<Event> userEvents;
 
+@OneToMany(cascade=CascadeType.ALL,mappedBy="user")
+private List<Complaint> userComplaints;
+
 
 public User(int id, String username, String firstname, String lastname, Role role, String email, String password,
 		String questionverif, String answerverif, String profilimage, int rate, String address, int telephone,

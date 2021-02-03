@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.DAO.entity.Complaint;
 import tn.esprit.spring.DAO.entity.ComplaintStatus;
-import tn.esprit.spring.DAO.entity.Customer;
+import tn.esprit.spring.DAO.entity.User;
 import tn.esprit.spring.DAO.repository.IComplaintDAO;
-import tn.esprit.spring.DAO.repository.ICustomerDAO;
+import tn.esprit.spring.DAO.repository.IUserRepository;
 
 
 @Service
@@ -17,13 +17,13 @@ public class ComplaintService implements IComplaintService {
 	@Autowired
 	private IComplaintDAO complaintRepository;
 	 @Autowired 
-	 private ICustomerDAO customerRepository;
+	 private IUserRepository userRepository;
 
 	@Override
-	  public List<Complaint> showComplaintsByCustomer(int userId) {
-		List<Complaint> complaintsByCustomer= new ArrayList<>();
-		  complaintRepository.findByCustomerUserid(userId).forEach(complaintsByCustomer::add);
-		  return complaintsByCustomer;
+	  public List<Complaint> showComplaintsByUser(int userid) {
+		List<Complaint> complaintsByUser= new ArrayList<>();
+		  complaintRepository.findByUserId(userid).forEach(complaintsByUser::add);
+		  return complaintsByUser;
 	  }
 	@Override
 	  public List<Complaint> showAllComplaints() {
@@ -45,18 +45,17 @@ public class ComplaintService implements IComplaintService {
 
 	@Override
 	public Complaint addComplaint(Complaint c, int userid) {
-			Customer user = customerRepository.findById(userid).get();
-			c.setCustomer(user);
+			User user =userRepository.findById(userid);
+			c.setUser(user);
 			c.setComplaintStatus(ComplaintStatus.NEW);
 			return complaintRepository.save(c);
 	}
 
 	@Override
 	public void updateComplaint( Complaint c,int userid) {
-		Customer user = customerRepository.findById(userid).get();
-		c.setCustomer(user);
+		User user =userRepository.findById(userid);
+		c.setUser(user);
 		c.setComplaintStatus(ComplaintStatus.NEW);
-
 		  complaintRepository.save(c);
 	}
 	@Override
@@ -66,6 +65,10 @@ public class ComplaintService implements IComplaintService {
 	@Override
 	public void saveComplaintResponseByComplaintId(int id) {
 		complaintRepository.save(complaintRepository.findById(id).get());
+	}
+	@Override
+	public int countComplaintsPerUser(int userid) {
+		return complaintRepository.countComplaintsByUser(userid);
 	}
 	
 }

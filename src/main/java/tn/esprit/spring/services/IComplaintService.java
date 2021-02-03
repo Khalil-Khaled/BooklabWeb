@@ -9,12 +9,11 @@ public interface IComplaintService {
 
 	public void deleteComplaint(Complaint c);
 	public Complaint addComplaint(Complaint c, int userid);
-	public  List<Complaint> showComplaintsByCustomer(int userid);
+	public  List<Complaint> showComplaintsByUser(int userid);
 	public Complaint showComplaint(int id);
-	//public void updateComplaint(Complaint c);
 	public void updateComplaint(Complaint c,int userid);
 	public List<Complaint> showAllComplaints() ;
 	public void deleteComplaint(int id);
 	public void saveComplaintResponseByComplaintId(int id);
-
+	public int countComplaintsPerUser(int userid);
 }

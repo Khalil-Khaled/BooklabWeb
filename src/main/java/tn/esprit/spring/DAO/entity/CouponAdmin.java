@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
@@ -32,6 +33,9 @@ public class CouponAdmin implements Serializable{
 	@NotNull
 	private int percentOff;
 
+	@OneToOne 
+	ShoppingCart shoppingCart; 
+	
 	@Enumerated(EnumType.STRING)
 	private Duration duration;
 
@@ -90,6 +94,16 @@ public class CouponAdmin implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
+
+
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
 	}
 
 

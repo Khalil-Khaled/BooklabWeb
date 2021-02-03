@@ -43,11 +43,11 @@ private ComplaintType complaintType;
 @Enumerated(EnumType.STRING)
 private ComplaintStatus complaintStatus;
 
-/* MANY TO ONE BIDIRECTIONAL Complaint<*---1>Customer */
+/* MANY TO ONE BIDIRECTIONAL Complaint<*---1>User */
 @JsonIgnore
 @ManyToOne
 @JoinColumn(name="userid")
-private Customer customer ;
+private User user ;
 /*ONE TO ONE BIDIRECTIONAL Compalaint<1----1> ComplaintResponse */
 @OneToOne
 private ComplaintResponse complaintResponse;
@@ -71,14 +71,14 @@ public Complaint(int complaintId, String topic, String message, ComplaintType co
 
 
 public Complaint(int complaintId, String topic, String message, ComplaintType complaintType, ComplaintStatus complaintStatus,
-		Customer customer, ComplaintResponse complaintResponse) {
+		User user, ComplaintResponse complaintResponse) {
 	super();
 	this.complaintId = complaintId;
 	this.topic = topic;
 	this.message = message;
 	this.complaintType = complaintType;
 	this.complaintStatus = complaintStatus;
-	this.customer = customer;
+	this.user = user;
 	this.complaintResponse = complaintResponse;
 }
 
@@ -151,14 +151,14 @@ public void setComplaintId(int complaintId) {
 
 
 
-public Customer getCustomer() {
-	return customer;
+public User getUser() {
+	return user;
 }
 
 
 
-public void setCustomer(Customer customer) {
-	this.customer = customer;
+public void setUser(User user) {
+	this.user = user;
 }
 
 
@@ -203,7 +203,7 @@ public boolean equals(Object obj) {
 @Override
 public String toString() {
 	return "Complaint [complaintId=" + complaintId + ", topic=" + topic + ", message=" + message + ", type=" + complaintType
-			+ ", complaintStatus=" + complaintStatus + ", customer=" + customer + ", complaintResponse="
+			+ ", complaintStatus=" + complaintStatus + ", user=" + user + ", complaintResponse="
 			+ complaintResponse + "]";
 }
 

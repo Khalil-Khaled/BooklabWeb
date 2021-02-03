@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.DAO.entity.CouponAdmin;
+import tn.esprit.spring.DAO.entity.ShoppingCart;
 import tn.esprit.spring.services.CouponAdminService;
 
 @RestController
@@ -36,5 +37,10 @@ public class CouponAdminController {
 	@RequestMapping(method=RequestMethod.DELETE , value="/admin/coupons/{couponId}/delete")
 	public void deleteCoupon(@PathVariable int couponId) {
 		couponAdminService.deleteCoupon(couponId);
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT ,value="/user/shoppingCart/{shoppingCartId}/useCoupon/{adminCouponId}")
+	public String affecterCouponAShoppingCart(@PathVariable int shoppingCartId,@RequestBody CouponAdmin c,@PathVariable int adminCouponId) {
+		return couponAdminService.affecterShoppingCartACoupon(c, shoppingCartId);
 	}
 }
