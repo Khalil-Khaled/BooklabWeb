@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.DAO.entity.Item;
-import tn.esprit.spring.DAO.entity.ItemB;
+import tn.esprit.spring.DAO.entity.Item;
 import tn.esprit.spring.services.*;
 
 @RestController
@@ -20,12 +20,12 @@ public class ItemController {
 	private ItemService iItemService;
 	
 	@PostMapping("/item/add")
-	public ItemB addItem(@RequestBody ItemB itm){
+	public Item addItem(@RequestBody Item itm){
 		return iItemService.addItem(itm);
 	}
 	
 	@PostMapping("/admin/item/update")
-	public void updateItem(ItemB itm){
+	public void updateItem(Item itm){
 		iItemService.updateItem(itm);
 	}
 	
@@ -35,7 +35,7 @@ public class ItemController {
 	}
 	
 	@GetMapping("/item/id")
-	public List<ItemB>  getItem(@PathVariable int itemId){
+	public List<Item>  getItem(@PathVariable int itemId){
 		return iItemService.getItem(itemId);
 	}
 	

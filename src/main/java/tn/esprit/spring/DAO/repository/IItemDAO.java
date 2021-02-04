@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import tn.esprit.spring.DAO.entity.Book;
-import tn.esprit.spring.DAO.entity.ItemB;
 
 @Repository
 public interface IItemDAO extends JpaRepository<Book, Integer> {

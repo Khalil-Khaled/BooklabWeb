@@ -10,9 +10,10 @@ import tn.esprit.spring.DAO.entity.Customer;
 import tn.esprit.spring.DAO.entity.Forum;
 import tn.esprit.spring.DAO.entity.ForumResponse;
 import tn.esprit.spring.DAO.entity.Status;
-import tn.esprit.spring.DAO.repository.ICustomerDAO;
+import tn.esprit.spring.DAO.entity.User;
 import tn.esprit.spring.DAO.repository.IForumDAO;
 import tn.esprit.spring.DAO.repository.IForumResponseDAO;
+import tn.esprit.spring.DAO.repository.IUserRepository;
 
 @Service
 public class ForumServicesImpl implements IForumServices {
@@ -21,7 +22,7 @@ public class ForumServicesImpl implements IForumServices {
 	IForumDAO iForumDAO;
 	
 	@Autowired
-	ICustomerDAO iCustomerDAO;
+	IUserRepository iUserRepository;
 	
 	@Autowired
 	IForumResponseDAO iForumResponseDAO;
@@ -54,7 +55,7 @@ public class ForumServicesImpl implements IForumServices {
 	}
 	
 	@Override
-	public Forum updateForumClient (Forum forum) {
+	public Forum updateForumUser (Forum forum) {
 		Forum forumDB = iForumDAO.findById(forum.getId()).orElse(null);
 		
 		if (forum.getDescription()!= null) {
@@ -71,9 +72,9 @@ public class ForumServicesImpl implements IForumServices {
 	}
 	
 	@Override
-	public void assignForumToCustomer (Forum forum, Customer customer) {
-		Customer customerBD = iCustomerDAO.findById(customer.getUserid()).orElse(null);
-		forum.setCustomer(customerBD);
+	public void assignForumToUser (Forum forum, User user) {
+		User userDB = iUserRepository.findById(user.getUserid());
+		forum.setUser(userDB);
 		iForumDAO.save(forum);
 	}
 	
@@ -97,7 +98,7 @@ public class ForumServicesImpl implements IForumServices {
 	}
 	
 	@Override
-	public ForumResponse updateForumResponseClient(ForumResponse forumResponse) {
+	public ForumResponse updateForumResponseUser(ForumResponse forumResponse) {
 		ForumResponse forumResponseDB = iForumResponseDAO.findById(forumResponse.getId()).orElse(null);
 		if (forumResponse.getMessage()!= null){
 			forumResponseDB.setMessage(forumResponse.getMessage());
@@ -124,8 +125,8 @@ public class ForumServicesImpl implements IForumServices {
 	}
 	
 	@Override
-	public void assignForumResponseToCustomer(ForumResponse forumResponse, Customer customer) {
-		forumResponse.setCustomer(customer);
+	public void assignForumResponseToUser(ForumResponse forumResponse, User user) {
+		forumResponse.setUser(user);
 		iForumResponseDAO.save(forumResponse);
 	}
 

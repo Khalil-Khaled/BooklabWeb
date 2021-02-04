@@ -2,6 +2,7 @@ package tn.esprit.spring.services;
 
 import java.util.List;
 
+import tn.esprit.spring.DAO.entity.Item;
 import tn.esprit.spring.DAO.entity.Offer;
 
 public interface IOfferServices {
@@ -17,6 +18,8 @@ public interface IOfferServices {
 	
 	
 	public Offer updateOffer (Offer o);
+	
+	public Item getMostSoldItemPerYear();
 	
 	
 }

@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,9 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -59,12 +58,16 @@ public class Event implements Serializable{
 	
 	/* MANY TO MANY BIDIRECTIONAL Event<*---*>User */
 	@JsonIgnore
-	@ManyToMany(mappedBy="events", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="participants",joinColumns = { @JoinColumn(name = "event_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") })
 	private List<User> users;
 	
 	/* MANY TO MANY BIDIRECTIONAL Event<*---*>User */
 	@JsonIgnore
-	@ManyToMany(mappedBy="categoryEvents", cascade = CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="eventCategories",joinColumns = { @JoinColumn(name = "event_id") },
+            inverseJoinColumns = { @JoinColumn(name = "category_id") })
 	private List<Category> categories;
 
 	public Event() {
@@ -72,7 +75,7 @@ public class Event implements Serializable{
 	}
 
 	public Event(String name, String description, Date begin_date, Date end_date, String location, User user,
-			List<User> users) {
+			List<User> users, List<Category> categories) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -81,6 +84,7 @@ public class Event implements Serializable{
 		this.location = location;
 		this.user = user;
 		this.users = users;
+		this.categories = categories;
 	}
 
 	public List<User> getUsers() {
@@ -183,9 +187,9 @@ public class Event implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Event [ user = " + user + "id=" + id + ", name=" + name + ""
-				+ ", description=" + description + ", begin_date=" + begin_date
-				+ ", end_date=" + end_date + ", location=" + location + "]";
+		return "Event [id=" + id + ", name=" + name + ", description=" + description + ", begin_date=" + begin_date
+				+ ", end_date=" + end_date + ", location=" + location + ", user=" + user + ", users=" + users
+				+ ", categories=" + categories + "]";
 	}
 
 }

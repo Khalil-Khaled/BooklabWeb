@@ -3,7 +3,8 @@ package tn.esprit.spring.DAO.repository;
 
 import java.util.List;
 
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -13,7 +14,7 @@ import tn.esprit.spring.DAO.entity.*;
 
 
 @Repository
-public interface EventRepository extends CrudRepository<Event, Integer> {
+public interface EventRepository extends JpaRepository<Event, Integer> {
 
 	// valide
 	@Query("SELECT e FROM Event e WHERE e.name= :name ")
@@ -50,7 +51,7 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
 	 @Query("SELECT count(*)as nb,e.user.id FROM Event e group by e.user.id order by nb ")
 		public List<String> getNbEventsByUser();
 	 
-	 
+	 //valide
 	 @Query("SELECT e from Event e join e.users u where u=:user")
 	 	public List<Event> participantEvents(@Param("user") User user);
 

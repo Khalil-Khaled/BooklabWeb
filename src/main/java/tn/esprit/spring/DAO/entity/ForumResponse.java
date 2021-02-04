@@ -21,19 +21,12 @@ public class ForumResponse implements Serializable {
 	@Enumerated (EnumType.STRING)
 	private Status status;
 	
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
 
 	@ManyToOne
 	private Forum forum;
 	
 	@ManyToOne
-	private Customer customer;
+	private User user;
 
 	public ForumResponse() {
 		
@@ -69,6 +62,14 @@ public class ForumResponse implements Serializable {
 
 	public void setForum(Forum forum) {
 		this.forum = forum;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	 

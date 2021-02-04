@@ -25,13 +25,13 @@ public class Forum implements Serializable {
 	@Enumerated (EnumType.STRING)
 	private Status status;
 	
-	@OneToMany (mappedBy = "forum", cascade=CascadeType.REMOVE)
+	@OneToMany (mappedBy = "forum", cascade=CascadeType.ALL)
 	@JsonIgnoreProperties("forum")
 	private List<ForumResponse> responses;
 	
 	
 	@ManyToOne
-	private Customer customer;
+	private User user;
 
 	public Forum() {
 		
@@ -77,13 +77,14 @@ public class Forum implements Serializable {
 		this.responses = responses;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public User getUser() {
+		return user;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setUser(User user) {
+		this.user = user;
 	}
+
 	
 	
 	

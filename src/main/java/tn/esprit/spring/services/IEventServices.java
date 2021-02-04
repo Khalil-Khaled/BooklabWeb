@@ -2,13 +2,14 @@ package tn.esprit.spring.services;
 
 import java.util.List;
 
+import tn.esprit.spring.DAO.entity.Category;
 import tn.esprit.spring.DAO.entity.Event;
 
 
 
 public interface IEventServices {
 
-	public Event addEvent(Event e);
+	public Event addEvent(Event e,Category c);
 	public List<Event> showAllEvents();
 	public List<Event> showEventByCustomer(int userId);
 	public Event showEvent(int id);
