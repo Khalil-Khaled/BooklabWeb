@@ -1,6 +1,7 @@
 package tn.esprit.spring.DAO.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.sun.istack.NotNull;
 
@@ -39,6 +42,8 @@ public class CouponAdmin implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private Duration duration;
 
+	@Temporal(TemporalType.DATE)
+	private Date expiration_date ;
 	
 	public CouponAdmin() {
 		super();
@@ -104,6 +109,16 @@ public class CouponAdmin implements Serializable{
 
 	public void setShoppingCart(ShoppingCart shoppingCart) {
 		this.shoppingCart = shoppingCart;
+	}
+
+
+	public Date getExpiration_date() {
+		return expiration_date;
+	}
+
+
+	public void setExpiration_date(Date expiration_date) {
+		this.expiration_date = expiration_date;
 	}
 
 
