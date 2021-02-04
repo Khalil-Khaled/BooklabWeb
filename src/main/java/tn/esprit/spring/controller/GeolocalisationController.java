@@ -3,9 +3,9 @@ package tn.esprit.spring.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.DAO.entity.Geolocalisation;
+import tn.esprit.spring.DAO.entity.User;
 import tn.esprit.spring.services.GeolocalisationImp;
 
-import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/loc")
@@ -24,13 +24,18 @@ public class GeolocalisationController {
         serviceGeo.delete(geolocalisation);
     }
 
-    @GetMapping("/getLocation/{userID}")
-    public Geolocalisation getLocation(@PathParam("userID") int user){
+    @PostMapping("/getLocation")
+    public Geolocalisation getLocation(@RequestBody User user){
         return serviceGeo.getGeoLocation(user);
     }
 
-    @GetMapping("/getLocation/{userID1}/{userID2}")
-    public double getLocation(@PathParam("userID1") int user1, @PathParam("userID2") int user2){
+    @GetMapping("/getDistance/{userID1}/{userID2}")
+    public double getLocation(@PathVariable("userID1") int user1v, @PathVariable("userID2") int user2v){
+
+        User user1 = new User();
+        User user2= new User();
+        user1.setUserid(user1v);
+        user2.setUserid(user2v);
         Geolocalisation g1 = serviceGeo.getGeoLocation(user1);
         Geolocalisation g2 =serviceGeo.getGeoLocation(user2);
 

@@ -19,9 +19,9 @@ public class Cart_ActionController {
         return caService.save(ca);
     }
 
-    @PostMapping("/deleteItemFromCart")
-    public void deleteItemFromCart(@RequestBody Cart_Action ca){
-        caService.delete(ca);
+    @GetMapping("/deleteItemFromCart/{cartID}/{itemID}")
+    public void deleteItemFromCart(@PathVariable int cartID, @PathVariable int itemID){
+        caService.delete(cartID, itemID);
     }
 
     @GetMapping("/getAllItemsFromCart/{cartID}")

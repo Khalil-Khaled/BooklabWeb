@@ -19,8 +19,8 @@ public class Cart_ActionImp implements Cart_ActionInterface<Cart_Action> {
     }
 
     @Override
-    public void delete(Cart_Action t) {
-        ca.delete(t.getItemID().getItemId(), t.getCartID().getCartID());
+    public void delete(int cartID, int itemID) {
+        ca.removeItemFromCart(cartID, itemID);
     }
 
     @Override

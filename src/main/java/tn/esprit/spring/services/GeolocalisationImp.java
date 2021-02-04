@@ -3,6 +3,7 @@ package tn.esprit.spring.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.DAO.entity.Geolocalisation;
+import tn.esprit.spring.DAO.entity.User;
 import tn.esprit.spring.DAO.repository.GeolocalisationRepo;
 
 @Service
@@ -23,8 +24,8 @@ public class GeolocalisationImp implements GeolocalisationInterface<Geolocalisat
 
 
     @Override
-    public Geolocalisation getGeoLocation(int userid) {
-        return repo.getLocation(userid);
+    public Geolocalisation getGeoLocation(User user) {
+        return repo.getLocation(user);
     }
 
 

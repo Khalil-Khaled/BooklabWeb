@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.DAO.entity.Item;
-import tn.esprit.spring.DAO.entity.Item;
 import tn.esprit.spring.services.*;
 
 @RestController
