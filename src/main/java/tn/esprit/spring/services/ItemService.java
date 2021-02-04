@@ -6,14 +6,15 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.DAO.entity.Category;
 import tn.esprit.spring.DAO.entity.Item;
-import tn.esprit.spring.DAO.repository.ItemRepository;
+import tn.esprit.spring.DAO.repository.IItemDAO;
+
 
 
 @Service
 public class ItemService implements IItemService{
 	
 	@Autowired
-	private ItemRepository itemRepository;
+	private IItemDAO itemRepository;
 	
 	@Override
 	public Item addItem(Item item) {

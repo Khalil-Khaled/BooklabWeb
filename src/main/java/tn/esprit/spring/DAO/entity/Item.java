@@ -1,76 +1,73 @@
 package tn.esprit.spring.DAO.entity;
 
-
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
-import java.util.List;
-import java.util.Objects;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 
-import com.sun.istack.NotNull;
-
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 @Entity
-@Table
-//@Inheritance(strategy=InheritanceType.JOINED)
-public class Item implements Serializable {
 
-//	private static final Logger L=Logger.getLogger(Category.class);
-	
+public class Item implements Serializable{
+
 	@Id
-	 @SequenceGenerator(name = "seqGen", sequenceName = "seqGen", initialValue = 5, allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(nullable=false,unique=true)
+	@Column(columnDefinition="Integer")
 	private int itemId;
 	
-	@Column(length=45, nullable=false,unique=true)
+	 @Enumerated(EnumType.STRING)
+	 private ItemType typeItem;
+	
+	@Column(nullable=false)
 	private String itemName;
+	@Column(nullable=false,columnDefinition="NUMBER(5,2)")
 	private float price;
-	private String itemImage;
+	@Column(nullable=false,columnDefinition="INTEGER")
+	private int itemAgeRating;
 	
-	@Enumerated(EnumType.STRING)
-	private Role itemRole;
+	@Column(nullable=false)
+	private String itemDescription;
 	
-
+	@Column(nullable=true)
+	private String author;
 	
+	@Column(nullable=true,columnDefinition="INTEGER")
+	private int pageNumber;
+	@Column(nullable=true)
+	@Temporal(TemporalType.DATE)
+	private Date bookPublishDate;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
+	private Category category;
+	
+	
+	@ManyToMany(mappedBy="items")
+    private Set<Offer> offers;
 	
 	public Item() {
-		
+		super();
 	}
 
-	public Item(int itemId, String itemName, float price, String itemImage) {
-		
-		this.itemId = itemId;
-		this.itemName = itemName;
-		this.price = price;
-		this.itemImage = itemImage;
-	}
 	
-	
-
-	public Item(String itemName, float price, String itemImage, Role itemRole) {
-		
-		this.itemName = itemName;
-		this.price = price;
-		this.itemImage = itemImage;
-		this.itemRole = itemRole;
-	}
 
 	public int getItemId() {
 		return itemId;
@@ -78,6 +75,14 @@ public class Item implements Serializable {
 
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
+	}
+
+	public ItemType getTypeItem() {
+		return typeItem;
+	}
+
+	public void setTypeItem(ItemType typeItem) {
+		this.typeItem = typeItem;
 	}
 
 	public String getItemName() {
@@ -96,41 +101,65 @@ public class Item implements Serializable {
 		this.price = price;
 	}
 
-	public String getItemImage() {
-		return itemImage;
+	public int getItemAgeRating() {
+		return itemAgeRating;
 	}
 
-	public void setItemImage(String itemImage) {
-		this.itemImage = itemImage;
-	}
-	
-	public Role getItemRole() {
-		return itemRole;
+	public void setItemAgeRating(int itemAgeRating) {
+		this.itemAgeRating = itemAgeRating;
 	}
 
-	public void setItemRole(Role itemRole) {
-		this.itemRole = itemRole;
+	public String getItemDescription() {
+		return itemDescription;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) 
-			return true;
-		if (o == null || getClass() != o.getClass()) 
-			return false;
-		Item item = (Item) o;
-		return itemId == item.itemId;
+	public void setItemDescription(String itemDescription) {
+		this.itemDescription = itemDescription;
 	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(itemId);
+
+	public String getAuthor() {
+		return author;
 	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public int getPageNumber() {
+		return pageNumber;
+	}
+
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+
+	public Date getBookPublishDate() {
+		return bookPublishDate;
+	}
+
+	public void setBookPublishDate(Date bookPublishDate) {
+		this.bookPublishDate = bookPublishDate;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	@Override
 	public String toString() {
-		return "ItemB [itemId=" + itemId + ", itemName=" + itemName + ", price=" + price + ", itemImage=" + itemImage
+		return "Item [itemId=" + itemId + ", typeItem=" + typeItem + ", itemName=" + itemName + ", price=" + price
+				+ ", itemAgeRating=" + itemAgeRating + ", itemDescription=" + itemDescription + ", author=" + author
+				+ ", pageNumber=" + pageNumber + ", bookPublishDate=" + bookPublishDate + ", category=" + category
 				+ "]";
 	}
+
+	
+
+ 
 	
 	
 	

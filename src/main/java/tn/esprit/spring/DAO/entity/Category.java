@@ -1,75 +1,40 @@
 package tn.esprit.spring.DAO.entity;
 
 import java.io.Serializable;
-
-
-import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.UniqueConstraint;
 
 
 
 @Entity
-@Table
-public class Category implements Serializable {
-//	private static final Logger L=Logger.getLogger(Category.class);
-	
+
+public class Category implements Serializable{
 	@Id
-    @SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq", initialValue = 1, allocationSize = 1)
+    //@SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq",allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(nullable=false,unique=true)
+	@Column(nullable=false, columnDefinition="INTEGER")
 	private int categoryId;
 	
-	@Column(length=45, nullable=false,unique=true)
+	
+	@Column(length=45,nullable=false, columnDefinition="TEXT")
 	private String categoryName;
 
-	@OneToMany(targetEntity = Item.class,cascade = CascadeType.ALL)
-	private List<Book> book;
-	
 
-	@JsonIgnore
-	@ManyToMany(mappedBy="categories")
-	private List<Event> events;
-	
-	
-	public List<Event> getEvent() {
-		return events;
-	}
-
-
-	public void setEvent(List<Event> events) {
-		this.events = events;
-	} 
-	
 	public Category() {
-		
-	}
-
-
-	public Category(int categoryId, String categoryName) {
-		
-		this.categoryId = categoryId;
-		this.categoryName = categoryName;
+		super();
 	}
 
 
 	public Category(String categoryName) {
-	
+		
 		this.categoryName = categoryName;
 	}
 
@@ -79,7 +44,7 @@ public class Category implements Serializable {
 	}
 
 
-	public void setCategoryId(Integer categoryId) {
+	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
 
@@ -111,7 +76,4 @@ public class Category implements Serializable {
 		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
 	}
 
-
-	
 }
-

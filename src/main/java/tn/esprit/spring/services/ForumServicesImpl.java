@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tn.esprit.spring.DAO.entity.Customer;
+
 import tn.esprit.spring.DAO.entity.Forum;
 import tn.esprit.spring.DAO.entity.ForumResponse;
 import tn.esprit.spring.DAO.entity.Status;

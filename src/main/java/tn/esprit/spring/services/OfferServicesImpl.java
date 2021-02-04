@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import tn.esprit.spring.DAO.entity.Item;
 import tn.esprit.spring.DAO.entity.Offer;
 import tn.esprit.spring.DAO.entity.Status;
-import tn.esprit.spring.DAO.repository.ICustomerDAO;
 import tn.esprit.spring.DAO.repository.IOfferDAO;
 import tn.esprit.spring.DAO.repository.IUserRepository;
 

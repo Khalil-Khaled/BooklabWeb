@@ -15,7 +15,7 @@ import tn.esprit.spring.DAO.entity.Cart_Action;
 import tn.esprit.spring.DAO.entity.Payment_Card;
 import tn.esprit.spring.DAO.entity.ShoppingCart;
 import tn.esprit.spring.DAO.repository.Cart_ActionRepo;
-import tn.esprit.spring.DAO.repository.ItemRepository;
+import tn.esprit.spring.DAO.repository.IItemDAO;
 import tn.esprit.spring.DAO.repository.ShoppingCartRepo;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class ShoppingCartImp implements ShoppingCartInterface<ShoppingCart> {
     private Cart_ActionRepo caR;
 
     @Autowired
-    private ItemRepository irepo;
+    private IItemDAO irepo;
 
     @Autowired
     private CouponAdminService scService;
