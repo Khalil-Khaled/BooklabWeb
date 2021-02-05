@@ -12,14 +12,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.DAO.entity.Cart_Action;
+import tn.esprit.spring.DAO.entity.Item;
 import tn.esprit.spring.DAO.entity.Offer;
+import tn.esprit.spring.DAO.entity.ShoppingCart;
+import tn.esprit.spring.services.Cart_ActionImp;
 import tn.esprit.spring.services.IOfferServices;
+import tn.esprit.spring.services.ShoppingCartImp;
 
 @RestController
 public class OfferController {
 
 	@Autowired
 	private IOfferServices iOfferServices;
+	
+	@Autowired
+	private ShoppingCartImp serviceShoppingCart;
+	
+	@Autowired
+    private Cart_ActionImp cartActionService;
 	
 	
 	@PostMapping("/offers/add")
@@ -55,6 +66,21 @@ public class OfferController {
 	@GetMapping("/myOffers/{idClient}")
 	public List<Offer> getMyOffers (@PathVariable int idClient) {
 		return iOfferServices.getMyOffers(idClient);
+	}
+	
+	
+	@PostMapping ("/offers/addToCart/{userID}/{offerID}")
+	public ShoppingCart addOfferItemsToShoppingCart (@PathVariable int userID, @PathVariable int offerID) {
+		ShoppingCart sc = serviceShoppingCart.getLatestSC(userID);
+		Offer offer = iOfferServices.getOffer(offerID);
+		for (Item item : offer.getItems()) {
+			Cart_Action ca = new Cart_Action();
+			ca.setAmount(1);
+			ca.setCartID(sc);
+			ca.setItemID(item);
+			cartActionService.save(ca);
+		}
+		return sc;
 	}
 	
 

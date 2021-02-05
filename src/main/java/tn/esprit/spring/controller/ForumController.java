@@ -15,6 +15,7 @@ import tn.esprit.spring.DAO.entity.Forum;
 import tn.esprit.spring.DAO.entity.ForumResponse;
 import tn.esprit.spring.DAO.entity.User;
 import tn.esprit.spring.services.IForumServices;
+import tn.esprit.spring.services.IUserservices;
 
 @RestController
 public class ForumController {
@@ -22,8 +23,13 @@ public class ForumController {
 	@Autowired
 	IForumServices iForumServices;
 	
-	@PostMapping("/forums/add")
-	public Forum addForum (@RequestBody Forum forum, @RequestBody User user) {
+	@Autowired
+	IUserservices iUserServices;
+	
+	
+	@PostMapping("/forums/add/{userID}")
+	public Forum addForum (@RequestBody Forum forum, @PathVariable int userID) {
+		User user = iUserServices.GetUser(userID);
 		iForumServices.assignForumToUser(forum, user);
 		return iForumServices.addForum(forum);
 	}
@@ -68,8 +74,10 @@ public class ForumController {
 		return iForumServices.updateForumStatusAdmin(forum);
 	}
 	
-	@PostMapping ("/forum/forumResponse/add")
-	public ForumResponse addForumResponse(@RequestBody ForumResponse forumResponse, @RequestBody Forum forum, @RequestBody User user) {
+	@PostMapping ("/forum/forumResponse/add/{forumID}/{userID}")
+	public ForumResponse addForumResponse(@RequestBody ForumResponse forumResponse, @PathVariable int forumID, @PathVariable int userID) {
+		Forum forum = iForumServices.getForum(forumID);
+		User user = iUserServices.GetUser(userID);
 		iForumServices.assignForumResponseToForum(forumResponse, forum);
 		iForumServices.assignForumResponseToUser(forumResponse, user);
 		return iForumServices.addForumResponse(forumResponse);
