@@ -15,4 +15,9 @@ public interface IUserservices{
 	public String Signup(User us);
 	public User Authority(String login, String password);
 	public User Update(User us);
+	public String UpdateRestPassword(int code,String password,int id);
+	public void ifNotverifiedVerif(int id,String verification_code);
+	public String VerifyMyaccount(User u, String verifcode);
+	public boolean isVerified(String login, String pwd);
+	public void AddCode(String code,User user_id) ;
 }

@@ -1,8 +1,6 @@
 package tn.esprit.spring.DAO.entity;
 
 import java.io.Serializable;
-
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,10 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.*;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -56,22 +53,25 @@ public class User implements Serializable {
 
 	private int zipCode;
 
-
 	@JsonIgnore
-	@ManyToMany(mappedBy="users")
+	@ManyToMany
 	private List<Event> events;
 
-	@OneToMany(mappedBy="user")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Event> userEvents;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("user")
 	private List<Offer> offer;
 
-	
 	@OneToMany(mappedBy = "user")
 	@JsonIgnoreProperties("user")
 	private List<Forum> forums;
+	
+	
+	@OneToMany(mappedBy = "user")
+	@JsonIgnoreProperties("user")
+	private List<Wishlist> wishlist;
 
 	@OneToMany(mappedBy = "user")
 	@JsonIgnoreProperties("user")

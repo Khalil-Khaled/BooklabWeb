@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import com.twilio.Twilio;
 import com.twilio.type.PhoneNumber;
 import tn.esprit.spring.DAO.entity.User;
+import tn.esprit.spring.DAO.entity.Verification_Code;
 import tn.esprit.spring.DAO.repository.IUserRepository;
 import tn.esprit.spring.DAO.repository.VerificationCodeRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,8 +36,10 @@ public class UserServices implements IUserservices{
 	@Autowired
 	private IUserRepository userRepository;
 	VerificationCodeRepository vcRepo;
+	Verification_Code Vc=new Verification_Code();
 	BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-	
+	public static int  coderest=0;
+	public static int  idverif=0;
 	private static final Logger L=LogManager.getLogger(UserServices.class);
 	//add user
 	public User addCustomer(User u){
@@ -131,5 +134,49 @@ public class UserServices implements IUserservices{
 			}
 
 			return null;
+		}
+		
+		public String UpdateRestPassword(int code, String password, int id) {
+			// TODO Auto-generated method stub
+			User t=userRepository.findById(id);
+			System.out.println(t);
+			if(t==null) {
+				return "User not found";
+			}
+			if(UserServices.coderest==code) {
+				t.setPassword(bCryptPasswordEncoder.encode(password));
+				userRepository.save(t);
+				return "Password updated successfully !";
+			}
+
+			return "wrong code";
+		}
+		public void AddCode(String code, User user_id) {
+			// TODO Auto-generated method stub
+			Vc.setCode(code);
+			Vc.setUser_id(user_id);
+			vcRepo.save(Vc);
+		}
+		public boolean isVerified(String login, String pwd) {
+			if(userRepository.isverified(login)==null)
+				return false;
+			return true;
+		}
+		public String VerifyMyaccount(User u, String verifcode) {
+			// TODO Auto-generated method stub
+			if(isVerified(u.getUsername(),u.getPassword()))
+				return "you are already verified";
+
+			else if(bCryptPasswordEncoder.matches(userRepository.Auth(u.getUsername()).getFirstname(),verifcode) && (userRepository.Auth(u.getUsername())!=null )) {
+				AddCode(verifcode, userRepository.Auth(u.getUsername()));
+				return "you have been verified";
+			}
+			return "Something went wrong";
+		}
+		public void ifNotverifiedVerif(int id,String verification_code) {
+			// TODO Auto-generated method stub
+			if(vcRepo.CheckVerification(verification_code,id)==null) {
+				AddCode(verification_code,userRepository.findById(id) );
+			}
 		}
 }

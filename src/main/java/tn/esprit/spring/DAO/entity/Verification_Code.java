@@ -12,11 +12,12 @@ import javax.persistence.OneToOne;
 public class Verification_Code {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private int id;
 	private String code;
-	private User user_id;
+	
 	@OneToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private User user_id;
 	
 	public void setUser_id(User user_id)
 	{
@@ -30,7 +31,7 @@ public class Verification_Code {
 	{
 		return id;
 	}
-	public void setId(long id)
+	public void setId(int id)
 	{
 		this.id = id;
 	}
@@ -46,7 +47,6 @@ public class Verification_Code {
 	{
 		return user_id;
 	}
-	
 	
 	
 }
