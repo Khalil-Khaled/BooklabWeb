@@ -103,6 +103,11 @@ public class ForumController {
 		return iForumServices.findForumsByUsername(username);
 	}
 	
+	@GetMapping ("/forums/badUsers")
+	public List<User> findTopUsersWithMostDownVotesByMonth() {
+		return iForumServices.findTopUsersWithMostDownVotesByMonth();
+	}
+	
 	
 	
 	

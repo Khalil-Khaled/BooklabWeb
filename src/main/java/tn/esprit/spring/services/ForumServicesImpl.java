@@ -1,7 +1,20 @@
 package tn.esprit.spring.services;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -156,8 +169,45 @@ public class ForumServicesImpl implements IForumServices {
 	@Override
 	public List<User> findTopUsersWithMostDownVotesByMonth() {
 		List<User> users = iForumDAO.findUsersWithMostDownVotesByMonth();
-		return users.stream().limit(10).collect(Collectors.toList());
+		users = users.stream().limit(10).collect(Collectors.toList());
+		for (User user : users) {
+			mailling(user.getEmail(), "Hello "+user.getFirstname()+", "
+					+ "\n This is a warning concerning your recent behaviour on our forum platform."
+					+ "\n We recommend that you verify your posts before sending them since we got many complaints."
+					+ "\n Regards from Booklab team !! ");
+		}
+		return users;
 	}
 	
+	public void mailling(String mail,String message) {
+		final String username = "booklab.pro@gmail.com";
+		final String password = "esprit123";
+		String fromEmail = "booklab.pro@gmail.com";
+		Properties properties = new Properties();
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", "587");
+		Session session = Session.getInstance(properties,new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username,password);
+			}
+		});
+		MimeMessage msg = new MimeMessage(session);
+		try {
+			msg.setFrom(new InternetAddress(fromEmail));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
+			msg.setSubject("Warning Regarding Your Recent Behaviour on Booklab");
+			Multipart emailContent = new MimeMultipart();
+			MimeBodyPart textBodyPart = new MimeBodyPart();
+			textBodyPart.setText(message);
+			emailContent.addBodyPart(textBodyPart);
+			msg.setContent(emailContent);
+			Transport.send(msg);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
