@@ -7,6 +7,7 @@ import tn.esprit.spring.DAO.entity.User;
 import tn.esprit.spring.services.GeolocalisationImp;
 
 
+
 @RestController
 @RequestMapping("/loc")
 public class GeolocalisationController {
@@ -45,3 +46,4 @@ public class GeolocalisationController {
 
 
 }
+

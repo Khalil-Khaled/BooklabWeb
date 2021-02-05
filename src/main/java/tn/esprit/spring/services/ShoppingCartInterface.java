@@ -8,7 +8,7 @@ public interface ShoppingCartInterface<T>{
     T save(T t);
     ShoppingCart getLatestSC(int userID);
     void delete(T t);
-    int pay(Payment_Card card);
+    String pay(Payment_Card card, ShoppingCart SC);
     double calculateTotal(int cartID);
 
 }

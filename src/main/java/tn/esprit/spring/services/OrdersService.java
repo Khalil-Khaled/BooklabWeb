@@ -2,11 +2,13 @@ package tn.esprit.spring.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tn.esprit.spring.DAO.entity.Cart_Action;
 import tn.esprit.spring.DAO.entity.Item;
 import tn.esprit.spring.DAO.entity.Orders;
 import tn.esprit.spring.DAO.repository.OrdersRepo;
 
 import java.util.List;
+
 
 @Service
 public class OrdersService implements IOrdersService<Orders>{
@@ -29,8 +31,9 @@ public class OrdersService implements IOrdersService<Orders>{
     }
 
     @Override
-    public List<Item> getItemsByOrder(int orderID) {
+    public List<Cart_Action> getItemsByOrder(int orderID) {
         return repo.getItemIDsByOrderID(orderID);
     }
 
 }
+

@@ -20,8 +20,6 @@ public class ShoppingCart implements Serializable{
     @Temporal (TemporalType.DATE)
     private Date creationDate;
 
-    @OneToOne
-    private CouponAdmin coupon;
 
     public ShoppingCart() {
     }

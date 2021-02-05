@@ -6,7 +6,7 @@ public class Payment_Card {
     private String exp_month;
     private String exp_year;
     private String cvc;
-    private int amount;
+    private double amount;
 
     public String getCard_number() {
         return card_number;
@@ -40,11 +40,11 @@ public class Payment_Card {
         this.cvc = cvc;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 }

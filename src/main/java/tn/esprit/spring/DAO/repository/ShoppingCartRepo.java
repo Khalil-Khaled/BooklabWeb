@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import tn.esprit.spring.DAO.entity.ShoppingCart;
 
 @Repository
-public interface ShoppingCartRepo extends JpaRepository<ShoppingCart, Integer> {
-        @Query(value = "SELECT sc from ShoppingCart sc where sc.creationDate = (select max(scc.creationDate) from Shopping_Cart scc where scc.userID = :userID)", nativeQuery = true)
+public interface ShoppingCartRepo extends JpaRepository<ShoppingCart, Integer>{
+        @Query(value = "SELECT sc from ShoppingCart sc where sc.creationDate = (select max(scc.creationDate) from ShoppingCart scc where scc.userID.id = :userID)")
         ShoppingCart getLastCart(@PathVariable("userID") int userID);
 
+        //getTotal + reduction coupon
+        @Query("select sum(i.price * ca.amount) from Cart_Action ca join Item i on ca.itemID.itemId = i.itemId where ca.cartID.cartID = :cartID")
+        double getCartTotal(@PathVariable("cartID") int cartID);
 
 }

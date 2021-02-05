@@ -32,14 +32,25 @@ public class ShoppingCartController {
         return serviceSC.getLatestSC(SC.getUserID().getUserid());
     }
 
-    @PostMapping("/pay")
-    public int pay(@RequestBody Payment_Card card){
-        return serviceSC.pay(card);
+//    @PostMapping("/pay")
+//    public int pay(@RequestBody Payment_Card card){
+//        return serviceSC.pay(card);
+//    }
+
+    @GetMapping ("/pay/{idUser}")
+    public String pay(@PathVariable("idUser") int userID){
+        Payment_Card pc = new Payment_Card();
+        pc.setCard_number("4242424242424242");
+        pc.setExp_month("06");
+        pc.setExp_year("2025");
+        pc.setCvc("123");
+        //return (int)serviceSC.calculateTotal(serviceSC.getLatestSC(userID).getCartID());
+        return serviceSC.pay(pc, serviceSC.getLatestSC(userID));
     }
 
     //NOT TESTED
     @GetMapping("/getTotal/{cartID}")
-    double calculateTotal(@Param("cartID") int cartID){
+    double calculateTotal(@PathVariable("cartID") int cartID){
         return serviceSC.calculateTotal(cartID);
     }
 }
