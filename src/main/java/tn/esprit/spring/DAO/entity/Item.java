@@ -30,7 +30,6 @@ public class Item implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(columnDefinition="Integer")
 	private int itemId;
 	
 	 @Enumerated(EnumType.STRING)
@@ -38,9 +37,9 @@ public class Item implements Serializable{
 	
 	@Column(nullable=false)
 	private String itemName;
-	@Column(nullable=false,columnDefinition="NUMBER(5,2)")
+	@Column(nullable=false)
 	private float price;
-	@Column(nullable=false,columnDefinition="INTEGER")
+	@Column(nullable=false)
 	private int itemAgeRating;
 	
 	@Column(nullable=false)
@@ -49,7 +48,7 @@ public class Item implements Serializable{
 	@Column(nullable=true)
 	private String author;
 	
-	@Column(nullable=true,columnDefinition="INTEGER")
+	@Column(nullable=true)
 	private int pageNumber;
 	@Column(nullable=true)
 	@Temporal(TemporalType.DATE)

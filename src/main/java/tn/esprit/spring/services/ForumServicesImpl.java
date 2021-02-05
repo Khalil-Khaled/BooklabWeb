@@ -44,6 +44,11 @@ public class ForumServicesImpl implements IForumServices {
 	}
 	
 	@Override
+	public Forum getForum(int id) {
+		return iForumDAO.findById(id).orElse(null);
+	}
+	
+	@Override
 	public List<Forum> getValidatedForums() {
 		List<Forum> forums = iForumDAO.findByStatus(Status.Validated);
 		for (Forum forum : forums) {
@@ -52,6 +57,11 @@ public class ForumServicesImpl implements IForumServices {
 			forum.setResponses(forumResponses);
 		}
 		 return forums;
+	}
+	
+	@Override
+	public List<Forum> getWaitingForums() {
+		return iForumDAO.findByStatus(Status.Waiting);
 	}
 	
 	@Override
@@ -93,8 +103,8 @@ public class ForumServicesImpl implements IForumServices {
 	}
 	
 	@Override
-	public void removeForumResponse(ForumResponse forumResponse) {
-		iForumResponseDAO.deleteById(forumResponse.getId());
+	public void removeForumResponse(int id) {
+		iForumResponseDAO.deleteById(id);
 	}
 	
 	@Override
@@ -129,8 +139,25 @@ public class ForumServicesImpl implements IForumServices {
 		forumResponse.setUser(user);
 		iForumResponseDAO.save(forumResponse);
 	}
-
 	
+	@Override
+	public List<Forum> findForumsByUsername (String username){
+		User user = iUserRepository.Auth(username);
+		if (user != null)
+			return user.getForums().stream().filter(f->f.getStatus().equals(Status.Validated)).collect(Collectors.toList());
+		else 
+			return getValidatedForums();
+	}
+	
+	public List<Forum> getRecentForums () {
+		return iForumDAO.getMostRecentForums();
+	}
+
+	@Override
+	public List<User> findTopUsersWithMostDownVotesByMonth() {
+		List<User> users = iForumDAO.findUsersWithMostDownVotesByMonth();
+		return users.stream().limit(10).collect(Collectors.toList());
+	}
 	
 
 }

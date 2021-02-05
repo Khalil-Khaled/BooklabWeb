@@ -25,6 +25,9 @@ public class Offer implements Serializable{
     private float priceOffer;
     private String descriptionOffer;
     
+    @Temporal(TemporalType.DATE)
+	private Date publishDate;
+    
 	@Temporal(TemporalType.DATE)
 	private Date purchaseDate;
     

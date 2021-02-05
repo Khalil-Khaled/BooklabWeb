@@ -28,7 +28,7 @@ public class OfferController {
 	}
 	
 	@PostMapping("/admin/offers/update")
-	public void updateOfferStatus (Offer o) {
+	public void updateOfferStatus (@RequestBody Offer o) {
 		iOfferServices.updateOffer(o);
 	}
 	
@@ -59,30 +59,4 @@ public class OfferController {
 	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

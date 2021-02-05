@@ -1,6 +1,8 @@
 package tn.esprit.spring.services;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import tn.esprit.spring.DAO.entity.Item;
 import tn.esprit.spring.DAO.entity.Offer;
 import tn.esprit.spring.DAO.entity.Status;
+import tn.esprit.spring.DAO.entity.User;
 import tn.esprit.spring.DAO.repository.IOfferDAO;
 import tn.esprit.spring.DAO.repository.IUserRepository;
 
@@ -77,10 +80,37 @@ public class OfferServicesImpl implements IOfferServices {
 
 	@Override
 	public Item getMostSoldItemPerYear() {
-		return iOfferDAO.getMostSoldItemPerYear();
+		List<Item> items =  iOfferDAO.getSoldItemsPerYear();
+		Map<Integer, List<Item>> itemsMap = items.stream().collect(Collectors.groupingBy(Item::getItemId));
+		int max=0;
+		int index=0;
+		for (Map.Entry<Integer, List<Item>> entrySet : itemsMap.entrySet()) {
+			if (entrySet.getValue().size()>max) {
+				max=entrySet.getValue().size();
+				index=entrySet.getKey();
+			}		
+		}
+		return itemsMap.get(index).get(0);
 	}
 	
+	@Override
+	public Item getLeastSoldItemPerYear() {
+		List<Item> items =  iOfferDAO.getSoldItemsPerYear();
+		Map<Integer, List<Item>> itemsMap = items.stream().collect(Collectors.groupingBy(Item::getItemId));
+		int min=2147483647;
+		int index=0;
+		for (Map.Entry<Integer, List<Item>> entrySet : itemsMap.entrySet()) {
+			if (entrySet.getValue().size()<min) {
+				min=entrySet.getValue().size();
+				index=entrySet.getKey();
+			}		
+		}
+		return itemsMap.get(index).get(0);
+	}
 	
+	public List<User> getTopSellersPerYear () {
+		return iOfferDAO.getTopSellersPerYear();
+	}
 	
 	
 }

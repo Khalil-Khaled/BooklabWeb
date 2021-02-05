@@ -275,17 +275,17 @@ public class EventServices implements IEventServices{
 		if(d.getDate()==30){
 		String cat = chooseGiftCategory(userId);
 		User u = participantRepository.findById(userId).get();
-		List<Book> booksSelected = new ArrayList<>();
-		Book b = new Book();
-		b.setItemName("Fantastic Hamza");
-		b.setPageNumber(500);
-		b.setPrice(0f);
-		Book b1 = new Book();
-		b.setItemName("Hamza Potter");
-		b.setPageNumber(500);
-		b.setPrice(0f);
-		booksSelected.add(b);
-		booksSelected.add(b1);
+//		List<Book> booksSelected = new ArrayList<>();
+//		Book b = new Book();
+//		b.setItemName("Fantastic Hamza");
+//		b.setPageNumber(500);
+//		b.setPrice(0f);
+//		Book b1 = new Book();
+//		b.setItemName("Hamza Potter");
+//		b.setPageNumber(500);
+//		b.setPrice(0f);
+//		booksSelected.add(b);
+//		booksSelected.add(b1);
 //		books = itemRepository.giftItems();
 //		List<ItemB> booksSelected = new ArrayList<>();
 		int index = (int) (Math.random() * ( 1 - 0 ));
@@ -293,13 +293,14 @@ public class EventServices implements IEventServices{
 //			if(iB.getItemRole().equals("Book"))
 //				booksSelected.add(iB);
 //		
-		Item bookChosen = booksSelected.get(index);
+//		Item bookChosen = booksSelected.get(index);
 //		Book b = itemRepository.findByCategory(cat);
 		
 //		booksSelected.add(b);
-		return "congrats sir : "+ u.getUsername() + " you won the book "+ bookChosen.getItemName() ;
+//		return "congrats sir : "+ u.getUsername() + " you won the book "+ bookChosen.getItemName() ;
 		}
-		else return"not gifts day yet";
+//		else return"not gifts day yet";
+		return "";
 	}
 }
 
