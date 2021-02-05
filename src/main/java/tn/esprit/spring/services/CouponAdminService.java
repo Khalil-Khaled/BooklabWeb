@@ -1,6 +1,7 @@
 package tn.esprit.spring.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -16,9 +17,6 @@ import tn.esprit.spring.DAO.repository.ShoppingCartRepo;
 public class CouponAdminService implements ICouponAdminService{
 	@Autowired
 	private ICouponAdminDAO couponAdminRepository;
-	
-	@Autowired
-	private ShoppingCartImp shoppingCartService;
 	
 	@Autowired
 	private ShoppingCartRepo shoppingCartRepo;
@@ -39,8 +37,8 @@ public class CouponAdminService implements ICouponAdminService{
 		return couponAdminRepository.findById(id).get();
 	}
 	@Override
-	public int getPercentOff(String name) {
-		return couponAdminRepository.getPourcentage(name);
+	public int getPercentOff(int scId) {
+		return couponAdminRepository.getPourcentage(scId);
 	}
 
 	public int  checkCouponValidity(String code) {
@@ -54,22 +52,34 @@ public class CouponAdminService implements ICouponAdminService{
         return valid;
     }
 
-	
+	public Date checkExpirationDate( Date expiration_date) {
+		return couponAdminRepository.checkDate(expiration_date);
+	}
+	public String getCouponsByName(String name) {
+		return couponAdminRepository.findCouponByName(name);
+	}
 	@Override
 	public String affecterShoppingCartACoupon(CouponAdmin coupon, int shoppingCartId) {
 		ShoppingCart sc = shoppingCartRepo.findById(shoppingCartId).get();
+		Date expiration_date =checkExpirationDate(coupon.getExpiration_date());
+		String code = getCouponsByName(coupon.getName());
 		String str="";
-		for (int i = 0; i < showAllCoupons().size(); i++) {
-          if (showAllCoupons().get(i).getName().equals(coupon.getName())) {
+		if(coupon.getShoppingCart() == null ) {
+          if (code != null  && expiration_date != null) {
         	  coupon.setShoppingCart(sc);
       			couponAdminRepository.save(coupon);
       			str="Coupon code was succefully verified .Enjoy the discount !";
-          } else {
-        	  coupon.setShoppingCart(null);
-        	  str="Coupon code invalide";
+          } else if(expiration_date == null){
+        	  str="Coupon is expired since "+ coupon.getExpiration_date();
+          }else if(code == null ) {
+        	  str="Coupon code is wrong !!";
+          }else {
+        	  str="Coupon code is invalide";
           }
-          
-      }		
+		}else {
+			str="You have already used a coupon in this ShopingCart ! You can only use a coupon per shopping cart";
+		}
+      		
 		return str;
 	}
 	@Override

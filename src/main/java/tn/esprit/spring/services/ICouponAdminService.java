@@ -14,7 +14,6 @@ public interface ICouponAdminService {
 	public CouponAdmin showCoupon(int id);
 	public void updateCoupon(CouponAdmin c);
 	public void deleteCoupon(int id);
-	public int getPercentOff(String name);
+	public int getPercentOff(int scId);
 	public String affecterShoppingCartACoupon(CouponAdmin c, int shoppingCartId);
-
 }

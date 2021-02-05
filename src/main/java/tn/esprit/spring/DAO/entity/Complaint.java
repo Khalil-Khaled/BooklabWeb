@@ -43,14 +43,56 @@ private ComplaintType complaintType;
 @Enumerated(EnumType.STRING)
 private ComplaintStatus complaintStatus;
 
-/* MANY TO ONE BIDIRECTIONAL Complaint<*---1>User */
+/* MANY TO ONE  Complaint<*---1>User */
 @JsonIgnore
 @ManyToOne
 @JoinColumn(name="userid")
 private User user ;
-/*ONE TO ONE BIDIRECTIONAL Compalaint<1----1> ComplaintResponse */
+
+/* MANY TO ONE  Complaint<*---1>Event */
+//@JsonIgnore
+@ManyToOne
+@JoinColumn(name="eventId")
+private Event event ;
+
+/* MANY TO ONE  Complaint<*---1>Order */
+//@JsonIgnore
+@ManyToOne
+@JoinColumn(name="orderId")
+private Orders order ;
+
+/* MANY TO ONE  Complaint<*---1>Offer */
+//@JsonIgnore
+@ManyToOne
+@JoinColumn(name="offerId")
+private Offer offer ;
+
+/*ONE TO ONE  Compalaint<1----1> ComplaintResponse */
 @OneToOne
 private ComplaintResponse complaintResponse;
+
+public Orders getOrder() {
+	return order;
+}
+
+
+
+public void setOrder(Orders order) {
+	this.order = order;
+}
+
+
+
+public Offer getOffer() {
+	return offer;
+}
+
+
+
+public void setOffer(Offer offer) {
+	this.offer = offer;
+}
+
 
 
 public Complaint() {
@@ -164,6 +206,18 @@ public void setUser(User user) {
 
 public ComplaintResponse getComplaintResponse() {
 	return complaintResponse;
+}
+
+
+
+public Event getEvent() {
+	return event;
+}
+
+
+
+public void setEvent(Event event) {
+	this.event = event;
 }
 
 

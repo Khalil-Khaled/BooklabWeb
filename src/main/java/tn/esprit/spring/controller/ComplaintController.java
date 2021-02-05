@@ -22,12 +22,35 @@ public class ComplaintController {
 		public Complaint addComplaint(@RequestBody Complaint complaint,@PathVariable int userid) {				
 			return  complaintService.addComplaint(complaint, userid);
 		}
-	  
+	  	
+	  	@RequestMapping(method=RequestMethod.POST ,value="/user/{userid}/events/{eventId}/addComplaint")
+	  	public Complaint addEventComplaint(@RequestBody Complaint complaint,@PathVariable int userid,@PathVariable int eventId ) {
+	  		return complaintService.addEventComplaint(complaint, userid, eventId);
+	  	}
+	  	@RequestMapping(method=RequestMethod.POST ,value="/user/{userid}/orders/{orderId}/addComplaint")
+	  	public Complaint addOrderComplaint(@RequestBody Complaint complaint,@PathVariable int userid,@PathVariable int orderId ) {
+	  		return complaintService.addOrderComplaint(complaint, userid, orderId);
+	  	}
+		@RequestMapping(method=RequestMethod.POST ,value="/user/{userid}/offers/{offerId}/addComplaint")
+	  	public Complaint addOfferComplaint(@RequestBody Complaint complaint,@PathVariable int userid,@PathVariable int offerId ) {
+	  		return complaintService.addOfferComplaint(complaint, userid, offerId);
+	  	}
 	  	@RequestMapping("/user/{userid}/complaints")
 	    public List<Complaint> getComplaintsByUser(@PathVariable int userid) {
 	        return complaintService.showComplaintsByUser(userid);
 	    }
-	  	
+	  	@RequestMapping("/user/{userid}/complaints/event/{eventId}")
+	    public List<Complaint> getComplaintsByEvent(@PathVariable int userid,@PathVariable int eventId) {
+	        return complaintService.showComplaintsByEvent(userid,eventId);
+	    }
+	 	@RequestMapping("/user/{userid}/complaints/order/{orderId}")
+	    public List<Complaint> getComplaintsByOrder(@PathVariable int userid,@PathVariable int orderId) {
+	        return complaintService.showComplaintsByOrder(userid, orderId);
+	    }
+		@RequestMapping("/user/{userid}/complaints/offer/{offerId}")
+	    public List<Complaint> getComplaintsByOffer(@PathVariable int userid,@PathVariable int offerId) {
+	        return complaintService.showComplaintsByOffer(userid, offerId);
+	    }
 		@RequestMapping("/user/{userid}/complaints/{complaintId}")
 	  	public Complaint getComplaintByUser(@PathVariable int userid,@PathVariable int complaintId) {
 	     return complaintService.showComplaint(complaintId);
@@ -41,7 +64,7 @@ public class ComplaintController {
 			complaintService.deleteComplaint(complaintId);
 		}
 		
-		@GetMapping(value = "/user/{userId}/complaints/nbComplaints")
+		@GetMapping(value = "/user/{userid}/complaints/nbComplaints")
 		public int numberOfComplaintsPerUser(@PathVariable("userid") int userid) {
 			return complaintService.countComplaintsPerUser(userid);
 		}
@@ -56,6 +79,7 @@ public class ComplaintController {
 	  	public Complaint getComplaint(@PathVariable int complaintId) {
 	     return complaintService.showComplaint(complaintId);
 	  }
+	  	
 	  	
 
 }
