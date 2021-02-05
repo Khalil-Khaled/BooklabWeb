@@ -34,9 +34,16 @@ public class EventController {
 	@Autowired
 	private EventServices eventServices;
 
-	@GetMapping(value = "/")
+	//valide
+	@GetMapping(value = "/updateSemaineDuLivre")
 	public void updateEventSemaineDuLivre() {
 		eventServices.updateEventSemaineDuLivre();
+	}
+	
+	//valide
+	@GetMapping(value = "/updateBlackFriday")
+	public void updateEventBlackFriday() {
+		eventServices.blackFriday();
 	}
 
 	// valide
@@ -71,19 +78,13 @@ public class EventController {
 	}
 
 	// valide
-	@GetMapping("/admin/{userId}/MyEvents")
-	public List<Event> getEventByCustomer(@PathVariable int userId) {
-		return eventServices.showEventByCustomer(userId);
-	}
-
-	// valide
 	@GetMapping("/eventNames")
 	public List<String> getEventNames() {
 		return eventRepository.getEventNames();
 	}
 
 	// valide
-	@GetMapping("/NbEvents")
+	@GetMapping("/NbEventsForGifts")
 	public List<String> getNbEventsByUser() {
 		return eventRepository.getNbEventsByUser();
 	}
@@ -94,7 +95,7 @@ public class EventController {
 	}
 
 	// valide
-	@GetMapping("/gifted")
+	@GetMapping("/MyGift")
 	public String giftMostActiveUser() {
 		return eventServices.giftMostActiveUserInEventCreation();
 	}
@@ -113,7 +114,7 @@ public class EventController {
 	}
 
 	// valide
-	@DeleteMapping(value = "/admin/{userId}/DeleteEvent/events/{eventId}")
+	@DeleteMapping(value = "/Delete/{userId}/DeleteEvent/events/{eventId}")
 	public void deleteEventByUser(@PathVariable("userId") int userId, @PathVariable int eventId) {
 		Event e = eventRepository.findById(eventId).get();
 		if (userId == e.getUser().getUserid())
@@ -161,6 +162,5 @@ public class EventController {
 		User user = participantRepository.findById(userId).get();
 		return eventServices.chooseBookGift(userId);
 	}
-	
 	
 }

@@ -48,7 +48,7 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 		public List<String> getEventNames();
 	 
 	 //valide
-	 @Query("SELECT count(*)as nb,e.user.id FROM Event e group by e.user.id order by nb ")
+	 @Query("SELECT e.user.id,count(*)as nb FROM Event e group by e.user.id order by nb DESC")
 		public List<String> getNbEventsByUser();
 	 
 	 //valide

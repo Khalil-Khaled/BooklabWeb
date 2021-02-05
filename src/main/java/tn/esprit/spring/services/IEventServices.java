@@ -26,4 +26,5 @@ public interface IEventServices {
 	public String giftMostActiveUserInEventCreation();
 	public List<String> mostActiveUserCategoryNames(int userId);
 	public String chooseGiftCategory(int userId);
+	public String chooseBookGift(int userId);
 }
