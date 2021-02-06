@@ -95,10 +95,10 @@ public class ForumServicesImpl implements IForumServices {
 	}
 	
 	@Override
-	public void assignForumToUser (Forum forum, User user) {
-		User userDB = iUserRepository.findById(user.getUserid());
+	public void assignForumToUser (Forum forum) {
+		User userDB = iUserRepository.findById(forum.getUser().getUserid());
+		System.out.println(userDB);
 		forum.setUser(userDB);
-		iForumDAO.save(forum);
 	}
 	
 	@Override
@@ -142,15 +142,15 @@ public class ForumServicesImpl implements IForumServices {
 	}
 	
 	@Override
-	public void assignForumResponseToForum(ForumResponse forumResponse, Forum forum) {
+	public void assignForumResponseToForum(ForumResponse forumResponse) {
+		Forum forum = iForumDAO.findById(forumResponse.getForum().getId()).orElse(null);
 		forumResponse.setForum(forum);
-		iForumResponseDAO.save(forumResponse);
 	}
 	
 	@Override
-	public void assignForumResponseToUser(ForumResponse forumResponse, User user) {
+	public void assignForumResponseToUser(ForumResponse forumResponse) {
+		User user = iUserRepository.findById(forumResponse.getUser().getUserid());
 		forumResponse.setUser(user);
-		iForumResponseDAO.save(forumResponse);
 	}
 	
 	@Override

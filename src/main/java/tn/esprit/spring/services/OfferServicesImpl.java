@@ -1,7 +1,9 @@
 package tn.esprit.spring.services;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import tn.esprit.spring.DAO.entity.Item;
 import tn.esprit.spring.DAO.entity.Offer;
 import tn.esprit.spring.DAO.entity.Status;
 import tn.esprit.spring.DAO.entity.User;
+import tn.esprit.spring.DAO.repository.IItemDAO;
 import tn.esprit.spring.DAO.repository.IOfferDAO;
 import tn.esprit.spring.DAO.repository.IUserRepository;
 
@@ -21,10 +24,24 @@ public class OfferServicesImpl implements IOfferServices {
 	private IUserRepository iUserRepository;
 	@Autowired
 	private IOfferDAO iOfferDAO;
+	
+	@Autowired
+	private IItemDAO itemDAO;
 
 	@Override
 	public Offer addOffer(Offer o) {
-		
+		User user = iUserRepository.findById(o.getUser().getUserid());
+		System.out.println(user);
+		o.setUser(user);
+		Set<Item> items = new HashSet<>();
+		for (Item item : o.getItems()) {
+			System.out.println(item);
+			Item item2 = itemDAO.findById(item.getItemId()).orElse(null);
+			System.out.println(item2);
+			items.add(item2);
+		}
+		System.out.println(items);
+		o.setItems(items);
 		return iOfferDAO.save(o);
 	}
 

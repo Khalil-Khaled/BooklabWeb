@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Offer implements Serializable{
 	
@@ -37,6 +39,7 @@ public class Offer implements Serializable{
     private String stripeId;
     
     @ManyToOne
+    @JsonIgnoreProperties ({"offer","forums","forumResponses","userEvents"})
     private User user;
     
     @ManyToMany
@@ -150,9 +153,12 @@ public class Offer implements Serializable{
 	@Override
 	public String toString() {
 		return "Offer [idOffer=" + idOffer + ", typeOffer=" + typeOffer + ", priceOffer=" + priceOffer
-				+ ", descriptionOffer=" + descriptionOffer + ", offerStatus=" + offerStatus + ", stripeId=" + stripeId
-				+ "]";
+				+ ", descriptionOffer=" + descriptionOffer + ", publishDate=" + publishDate + ", purchaseDate="
+				+ purchaseDate + ", offerStatus=" + offerStatus + ", stripeId=" + stripeId + ", user=" + user
+				+ ", items=" + items + "]";
 	}
+
+
     
     
 }

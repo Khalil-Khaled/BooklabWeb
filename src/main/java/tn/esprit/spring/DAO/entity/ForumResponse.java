@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class ForumResponse implements Serializable {
 	
@@ -23,9 +25,11 @@ public class ForumResponse implements Serializable {
 	
 
 	@ManyToOne
+	@JsonIgnoreProperties ("forumResponses")
 	private Forum forum;
 	
 	@ManyToOne
+	@JsonIgnoreProperties ({"offer","forums","forumResponses","userEvents"})
 	private User user;
 
 	public ForumResponse() {

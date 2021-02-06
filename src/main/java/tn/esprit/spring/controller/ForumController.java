@@ -27,10 +27,10 @@ public class ForumController {
 	IUserservices iUserServices;
 	
 	
-	@PostMapping("/forums/add/{userID}")
-	public Forum addForum (@RequestBody Forum forum, @PathVariable int userID) {
-		User user = iUserServices.GetUser(userID);
-		iForumServices.assignForumToUser(forum, user);
+	@PostMapping("/forums/add")
+	public Forum addForum (@RequestBody Forum forum) {
+		System.out.println(forum);
+		iForumServices.assignForumToUser(forum);
 		return iForumServices.addForum(forum);
 	}
 	
@@ -54,7 +54,7 @@ public class ForumController {
 		return iForumServices.getWaitingForums();
 	}
 	
-	@GetMapping
+	@GetMapping ("/forums/recent")
 	public List<Forum> getRecentForums () {
 		return iForumServices.getRecentForums();
 	}
@@ -74,12 +74,10 @@ public class ForumController {
 		return iForumServices.updateForumStatusAdmin(forum);
 	}
 	
-	@PostMapping ("/forum/forumResponse/add/{forumID}/{userID}")
-	public ForumResponse addForumResponse(@RequestBody ForumResponse forumResponse, @PathVariable int forumID, @PathVariable int userID) {
-		Forum forum = iForumServices.getForum(forumID);
-		User user = iUserServices.GetUser(userID);
-		iForumServices.assignForumResponseToForum(forumResponse, forum);
-		iForumServices.assignForumResponseToUser(forumResponse, user);
+	@PostMapping ("/forum/forumResponse/add")
+	public ForumResponse addForumResponse(@RequestBody ForumResponse forumResponse) {
+		iForumServices.assignForumResponseToForum(forumResponse);
+		iForumServices.assignForumResponseToUser(forumResponse);
 		return iForumServices.addForumResponse(forumResponse);
 	}
 	
@@ -98,7 +96,7 @@ public class ForumController {
 		return iForumServices.updateForumResponseStatusAdmin(forumResponse);
 	}
 	
-	@GetMapping ("/forums/search/")
+	@GetMapping ("/forums/search")
 	public List<Forum> findForumsByUsername (@Param("username") String username) {
 		return iForumServices.findForumsByUsername(username);
 	}

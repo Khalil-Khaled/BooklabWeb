@@ -35,14 +35,14 @@ public class Item implements Serializable{
 	 @Enumerated(EnumType.STRING)
 	 private ItemType typeItem;
 	
-	@Column(nullable=false)
+	@Column()
 	private String itemName;
-	@Column(nullable=false)
+	@Column()
 	private float price;
-	@Column(nullable=false)
+	@Column()
 	private int itemAgeRating;
 	
-	@Column(nullable=false)
+	@Column()
 	private String itemDescription;
 	
 	@Column(nullable=true)
@@ -54,8 +54,8 @@ public class Item implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date bookPublishDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
+	@ManyToOne()
+	@JoinColumn(name = "categoryId")
 	private Category category;
 	
 	

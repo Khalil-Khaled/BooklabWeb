@@ -37,6 +37,7 @@ public class Forum implements Serializable {
 	private List<ForumResponse> responses;
 
 	@ManyToOne
+	@JsonIgnoreProperties ({"offer","forums","forumResponses","userEvents"})
 	private User user;
 
 	public Forum() {
@@ -113,6 +114,13 @@ public class Forum implements Serializable {
 
 	public void setPublishDate(Date publishDate) {
 		this.publishDate = publishDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Forum [id=" + id + ", title=" + title + ", description=" + description + ", upVotes=" + upVotes
+				+ ", downVotes=" + downVotes + ", publishDate=" + publishDate + ", status=" + status + ", responses="
+				+ responses + ", user=" + user + "]";
 	}
 	
 	

@@ -19,9 +19,9 @@ public interface IForumDAO extends JpaRepository<Forum, Integer> {
 	public List<Forum> getMostRecentForums();
 	
 	@Query ("select distinct u "
-			+ "from User u "
-			+ "join Forum f "
-			+ "where sum(f.downVotes)>1000 and EXTRACT(MONTH FROM f.publishDate)=EXTRACT(MONTH FROM CURRENT_DATE) and EXTRACT(Year FROM f.publishDate)=EXTRACT(Year FROM CURRENT_DATE)"
+			+ "from Forum f "
+			+ "join f.user u "
+			+ "where sum(f.downVotes)>1000 and EXTRACT(MONTH FROM f.publishDate)=EXTRACT(MONTH FROM CURRENT_DATE) and EXTRACT(Year FROM f.publishDate)=EXTRACT(Year FROM CURRENT_DATE) "
 			+ "order by sum(f.downVotes) desc")
 	public List<User> findUsersWithMostDownVotesByMonth();
 

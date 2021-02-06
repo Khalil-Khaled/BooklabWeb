@@ -19,15 +19,15 @@ public interface IForumServices {
 	public Forum updateForumUser (Forum forum);
 	public Forum updateForumStatusAdmin (Forum forum);
 	
-	public void assignForumToUser (Forum forum, User user);
+	public void assignForumToUser (Forum forum);
 	
 	public ForumResponse addForumResponse (ForumResponse forumResponse);
 	public void removeForumResponse (int id);
 	public ForumResponse updateForumResponseUser (ForumResponse forumResponse);
 	public ForumResponse updateForumResponseStatusAdmin (ForumResponse forumResponse);
 	
-	public void assignForumResponseToForum (ForumResponse forumResponse, Forum forum);
-	public void assignForumResponseToUser(ForumResponse forumResponse, User user);
+	public void assignForumResponseToForum (ForumResponse forumResponse);
+	public void assignForumResponseToUser(ForumResponse forumResponse);
 	
 	public List<Forum> findForumsByUsername (String username);
 	public List<User> findTopUsersWithMostDownVotesByMonth();

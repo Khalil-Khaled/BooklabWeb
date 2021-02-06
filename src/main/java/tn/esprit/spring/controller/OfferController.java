@@ -35,6 +35,7 @@ public class OfferController {
 	
 	@PostMapping("/offers/add")
 	public Offer addOffer (@RequestBody Offer o){
+		System.out.println(o);
 		return iOfferServices.addOffer(o);
 	}
 	
@@ -69,8 +70,10 @@ public class OfferController {
 	}
 	
 	
-	@PostMapping ("/offers/addToCart/{userID}/{offerID}")
+	@GetMapping ("/offers/addToCart/{userID}/{offerID}")
 	public ShoppingCart addOfferItemsToShoppingCart (@PathVariable int userID, @PathVariable int offerID) {
+		System.out.println(userID);
+		System.out.println(offerID);
 		ShoppingCart sc = serviceShoppingCart.getLatestSC(userID);
 		Offer offer = iOfferServices.getOffer(offerID);
 		for (Item item : offer.getItems()) {
