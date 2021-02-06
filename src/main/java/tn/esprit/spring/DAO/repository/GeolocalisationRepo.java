@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import tn.esprit.spring.DAO.entity.Geolocalisation;
 import tn.esprit.spring.DAO.entity.User;
 
+
 @Repository
 public interface GeolocalisationRepo extends JpaRepository<Geolocalisation, Integer> {
     @Query(value = "SELECT g FROM Geolocalisation g where g.id = (SELECT max(gg.id) FROM Geolocalisation gg where gg.user = :userid)")

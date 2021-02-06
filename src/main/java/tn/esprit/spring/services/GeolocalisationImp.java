@@ -13,7 +13,7 @@ public class GeolocalisationImp implements GeolocalisationInterface<Geolocalisat
 
     @Override
     public Geolocalisation save(Geolocalisation geolocalisation) {
-         repo.save(geolocalisation);
+        repo.save(geolocalisation);
         return geolocalisation;
     }
 

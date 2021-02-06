@@ -50,12 +50,14 @@ public class CouponAdmin implements Serializable{
 	}
 
 	
-	public CouponAdmin(int adminCouponId, String name, int percentOff, Duration duration) {
+	public CouponAdmin(int adminCouponId, String name, int percentOff, Duration duration, Date expiration_date) {
 		super();
 		this.adminCouponId = adminCouponId;
 		this.name = name;
 		this.percentOff = percentOff;
 		this.duration = duration;
+		this.expiration_date =expiration_date ;
+		
 	}
 	public int getAdminCouponId() {
 		return adminCouponId;
@@ -125,7 +127,7 @@ public class CouponAdmin implements Serializable{
 	@Override
 	public String toString() {
 		return "CouponAdmin [adminCouponId=" + adminCouponId + ", name=" + name + ", percentOff=" + percentOff
-				+ ", duration=" + duration + "]";
+				+ ", duration=" + duration + ", expiration_date= " + expiration_date +"]";
 	}
 
 
@@ -133,6 +135,7 @@ public class CouponAdmin implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + adminCouponId;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -147,6 +150,8 @@ public class CouponAdmin implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		CouponAdmin other = (CouponAdmin) obj;
+		if (adminCouponId != other.adminCouponId)
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -154,5 +159,6 @@ public class CouponAdmin implements Serializable{
 			return false;
 		return true;
 	}
+
 
 }

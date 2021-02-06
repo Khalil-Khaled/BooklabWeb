@@ -10,3 +10,4 @@ public interface GeolocalisationInterface<T> {
     Geolocalisation getGeoLocation(User userid);
     double getDistance(T t1, T t2);
 }
+

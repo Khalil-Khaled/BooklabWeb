@@ -55,7 +55,6 @@ public class Item implements Serializable{
 	private Date bookPublishDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
 	private Category category;
 	
 	

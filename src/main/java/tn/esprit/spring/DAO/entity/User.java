@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import tn.esprit.spring.DAO.entity.*;
 
 @Entity
-@Table(name = "User")
 public class User implements Serializable {
 
 	@Id
