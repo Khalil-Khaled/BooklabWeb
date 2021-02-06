@@ -2,6 +2,7 @@ package tn.esprit.spring.DAO.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,6 +32,7 @@ public class Item implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(columnDefinition="Integer")
 	private int itemId;
 	
 	 @Enumerated(EnumType.STRING)
@@ -37,9 +40,9 @@ public class Item implements Serializable{
 	
 	@Column(nullable=false)
 	private String itemName;
-	@Column(nullable=false)
+	@Column(nullable=false,columnDefinition="NUMBER(5,2)")
 	private float price;
-	@Column(nullable=false)
+	@Column(nullable=false,columnDefinition="INTEGER")
 	private int itemAgeRating;
 	
 	@Column(nullable=false)
@@ -48,18 +51,29 @@ public class Item implements Serializable{
 	@Column(nullable=true)
 	private String author;
 	
-	@Column(nullable=true)
+	@Column(nullable=true,columnDefinition="INTEGER")
 	private int pageNumber;
 	@Column(nullable=true)
 	@Temporal(TemporalType.DATE)
 	private Date bookPublishDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
 	private Category category;
 	
 	
-	@ManyToMany(mappedBy="items")
+	@ManyToMany(mappedBy="item")
     private Set<Offer> offers;
+	
+	@ManyToMany(mappedBy="item")
+	private User user;
+
+	
+	@OneToOne
+    @JoinColumn(nullable = false)
+    private Cart_Action cartAction;
+	
+	
 	
 	public Item() {
 		super();
@@ -146,6 +160,42 @@ public class Item implements Serializable{
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	
+	
+
+	public Set<Offer> getOffers() {
+		return offers;
+	}
+
+
+
+	public void setOffers(Set<Offer> offers) {
+		this.offers = offers;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+
+	public Cart_Action getCartAction() {
+		return cartAction;
+	}
+
+
+
+	public void setCartAction(Cart_Action cartAction) {
+		this.cartAction = cartAction;
+	}
+
+
 
 	@Override
 	public String toString() {
