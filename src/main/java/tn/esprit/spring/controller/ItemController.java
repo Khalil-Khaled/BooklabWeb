@@ -18,20 +18,23 @@ import tn.esprit.spring.services.*;
 @RestController
 public class ItemController {
 
+	
+	private final ItemService itemService;
+
 	@Autowired
-	private ItemService itemService;
+	public ItemController(ItemService itemService){
+		this.itemService = itemService;
+	}
 	
 	@PostMapping("additem")
 	public Item addItem (@RequestBody Item item, @PathVariable("userid") int userid){
 		return itemService.addItem(item, userid);
 	}
 	
-	
 	@PutMapping("updateitem")
-	public void updateItem(@RequestBody Item itm){
-		itemService.updateItem(itm);
+	public void updateItem(@RequestBody Item item){
+		itemService.updateItem(item);
 	}
-	
 	
 	@DeleteMapping("deleteitem")
 	public void deleteItem(@PathVariable("itemId") int itemId){
@@ -42,10 +45,12 @@ public class ItemController {
 	public List<Item>  getAllItem(){
 		return itemService.showAllItems();
 	}
+
 	@GetMapping("cartaction")
 	public List<Item> getCartByItem(@PathVariable("itemId") int itemId){
 		return itemService.showCartAction(itemId);
 	}
+	
 	@GetMapping("itembyuser")
 	public int numberOfItems(@PathVariable("userid") int userid){
 		return itemService.countItemByUser(userid);
@@ -55,6 +60,7 @@ public class ItemController {
 	public List<Item> getItemByUser(@PathVariable("userid") int userid){
 		return itemService.showItemByUser(userid);
 	}
+	
 	@GetMapping("offerbyitem")
 	public int numberOfOffers(@PathVariable("itemId") int itemId){
 		return itemService.countOfferByItem(itemId);

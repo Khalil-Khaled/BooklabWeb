@@ -71,7 +71,7 @@ public class EventController {
 	@PostMapping("/ajouterEvent/{userId}/{categoryId}")
 	public Event ajouterEvent(@RequestBody Event event, @PathVariable("userId") int userId, @PathVariable("categoryId") int categoryId) {
 		User u = participantRepository.findById(userId).get();
-		Category c = categoryRepository.findById(categoryId).get();
+		Category c = categoryRepository.findById(categoryId);
 		event.ListUser(u);
 		eventServices.addEvent(event,c);
 		return event;

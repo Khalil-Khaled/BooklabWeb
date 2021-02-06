@@ -13,24 +13,23 @@ import tn.esprit.spring.DAO.repository.CategoryRepository;
 import tn.esprit.spring.DAO.repository.IItemDAO;
 import tn.esprit.spring.DAO.repository.IUserRepository;
 
-
-
 @Service
 public class ItemService implements IItemService{
-	
-	@Autowired
-	private IItemDAO itemRepository;
-	
-	@Autowired 
-	private CategoryRepository categoryRepository;
-	
-	@Autowired
-	private IUserRepository userRepository;
-	
 
+	private final IItemDAO itemRepository;
+	private final CategoryRepository categoryRepository;
+	private final IUserRepository userRepository;
+
+	@Autowired
+	public ItemService(IItemDAO itemRepository, CategoryRepository categoryRepository, IUserRepository userRepository) {
+		this.itemRepository = itemRepository;
+		this.categoryRepository = categoryRepository;
+		this.userRepository = userRepository;
+	}
+	
 	@Override
 	public Item addItem(Item item, int userid) {
-		User user =userRepository.findById(userid);
+		User user = userRepository.findById(userid);
 		item.setUser(user);
 		return itemRepository.save(item);
 	}
@@ -43,21 +42,19 @@ public class ItemService implements IItemService{
 
 	@Override
 	public List<Item> showItemByUser(int userid) {
-		List<Item> itemsByUser= new ArrayList<>();
+		List<Item> itemsByUser = new ArrayList<>();
 		  itemRepository.findByUserId(userid).forEach(itemsByUser::add);
 		  return itemsByUser;
 	}
-
 
 	@Override
 	public Item updateItem(Item itm) {
 		return itemRepository.save(itm);
 	}
 
-
 	@Override
 	public List<Item> showAllItems() {
-		List<Item> allItems=new ArrayList<>();
+		List<Item> allItems = new ArrayList<>();
 		itemRepository.findAll().forEach(allItems::add);
 		return allItems;
 	}
@@ -74,13 +71,10 @@ public class ItemService implements IItemService{
 
 	@Override
 	public List<Item> showCartAction(int itemId) {
-
-		List<Item> itemsByCart= new ArrayList<>();
+		List<Item> itemsByCart = new ArrayList<>();
+		  
 		  itemRepository.findById(itemId);
 		  return itemsByCart;
 	}
-
-	
-
 
 }

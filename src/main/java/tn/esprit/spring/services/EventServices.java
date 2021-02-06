@@ -232,15 +232,15 @@ public class EventServices implements IEventServices {
 	@Override
 	public String chooseGiftCategory(int userId) {
 		List<String> categoriesPerParticipantNames = mostActiveUserCategoryNames(userId);
-		List<String> categoriesNames = categoryRepository.names();
+	//List<String> categoriesNames = categoryRepository.names();
 		Map<String, Integer> mostLovedCategory = new HashMap<>();
 		int i = 0;
-		if (categoriesNames != null) {
+		/*if (categoriesNames != null) {
 			for (String c : categoriesNames) {
 				i = categoryOccurence(c, categoriesPerParticipantNames);
 				mostLovedCategory.put(c, i);
 			}
-		}
+		}*/
 		String chosenCat = "";
 		int max = 0;
 		for (Map.Entry<String, Integer> map : mostLovedCategory.entrySet())
@@ -267,12 +267,12 @@ public class EventServices implements IEventServices {
 			String cat = chooseGiftCategory(userId);
 			User u = userRepository.findById(userId);
 			List<Item> booksSelected = new ArrayList<>();
-			List<Item> booksFromBase = itemRepository.getBooksGifts();
+			//List<Item> booksFromBase = itemRepository.getBooksGifts();
 			int index = (int) (Math.random() * (1 - 0));
-			for (Item b : booksFromBase)
+			/*for (Item b : booksFromBase)
 				if (b.getCategory().getCategoryName().equals(cat)) {
 					booksSelected.add(b);
-				}
+				}*/
 			Item book = new Item();
 			if(booksSelected != null){
 			book = booksSelected.get(index);
